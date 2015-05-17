@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '1.3.10'
+#gem 'sqlite3', '1.3.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '4.0.4'
 # Use Uglifier as compressor for JavaScript assets
@@ -38,7 +38,8 @@ gem 'spring', '1.1.3',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-gem 'mysql2', '0.3.17'
+#gem 'mysql2', '0.3.17'
+gem 'pg'
 gem 'activeadmin', '1.0.0.pre1', github: 'activeadmin'
 gem 'devise', '3.4.1'
 
