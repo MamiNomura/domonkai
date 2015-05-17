@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  domonkai_id: MyString
+  name: MyString
+  japanese_name: MyString
+  email: MyString
+  sex: MyString
+  join_date: 2015-05-16 20:04:53
+  address: MyString
+  city: MyString
+  state: MyString
+  phone: MyString
+  tea_name: MyString
+  japanese_tea_name: MyString
+
+two:
+  domonkai_id: MyString
+  name: MyString
+  japanese_name: MyString
+  email: MyString
+  sex: MyString
+  join_date: 2015-05-16 20:04:53
+  address: MyString
+  city: MyString
+  state: MyString
+  phone: MyString
+  tea_name: MyString
+  japanese_tea_name: MyString
