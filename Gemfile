@@ -45,4 +45,3 @@ gem 'devise', '3.4.1'
 
 gem 'active_skin', '0.0.8'
 #gem 'activeadmin-axlsx'
-gem 'rails_12factor', group: :production
