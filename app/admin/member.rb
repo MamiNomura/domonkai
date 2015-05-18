@@ -14,27 +14,51 @@ ActiveAdmin.register Member do
   # default sort column
   config.sort_order = :domonkai_id
 
+  DOMONKAI_ID_LABEL = 'ID'
+  SHIKAKU_LABEL = 'Shikaku'
+  SHACHU_LABEL = 'Shachu'
+  ADDRESS_LABEL = 'address'
+  JAPANESE_LASTNAME_LABEL = "苗字 （Japanese Last Name)"
+  JAPANESE_FIRSTNAME_LABEL = "名前 (Japanese First Name)"
+  JAPANESE_CHAMEI_LABEL = "茶名"
+  JAPANESE_SHACHU_LABEL =  '社中'
+
   # displays the site_id but uses site_info_id for the query
-  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => 'Shikaku'
-  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => 'Shachu'
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => SHACHU_LABEL
   filter :first_name
   filter :last_name
-  filter :domonkai_id, :label => 'Domonkai ID'
+  filter :domonkai_id, :label => DOMONKAI_ID_LABEL
+
+  controller do
+    def scoped_collection
+      super.includes :shikaku_kubun  # prevents N+1 queries to your database
+    end
+  end
 
   index do
     selectable_column
-    column 'ID', :domonkai_id
-    column 'Shachu' do |member|
-      member.shachu.last_name
+    column DOMONKAI_ID_LABEL, :domonkai_id
+    column SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
+      unless member.shachu.nil?
+        member.shachu.last_name
+
+      else
+        member.shachu
+      end
+
     end
-    column 'Shikaku' do |member|
+
+    column SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
       member.shikaku_kubun.name
     end
     column :last_name
     column :first_name
     column :email
-    column :phone
-    column '住所' do |member|
+    column :phone do |member|
+      number_to_phone(member.phone, area_code: true)
+    end
+    column ADDRESS_LABEL do |member|
       member.address + ' ' + member.city + ' ' + member.state + ' ' + member.zip
     end
 
@@ -43,14 +67,14 @@ ActiveAdmin.register Member do
 
   form do |f|
     f.inputs do
-      f.input :domonkai_id, :label => "Domonkai id"
+      f.input :domonkai_id, :label => DOMONKAI_ID_LABEL
       f.input :join_date,   :as => :datepicker
       f.input :last_name, :as => :string, :include_blank => false
       f.input :first_name, :as => :string, :include_blank => false
-      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => "苗字"
-      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => "名前"
+      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => JAPANESE_LASTNAME_LABEL
+      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => JAPANESE_FIRSTNAME_LABEL
       f.input :tea_name, :as => :string, :include_blank => false
-      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => "茶名"
+      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => JAPANESE_CHAMEI_LABEL
       f.input :email
       f.input :sex, :as => :select, :collection => ['Male', 'Female', 'N/A'], :include_blank => false
       f.input :address
@@ -60,8 +84,8 @@ ActiveAdmin.register Member do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.all.collect {|m| [m.japanese_last_name, m.id]} , :label => '社中'
-      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => 'Shikakusha-kubun'
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => SHACHU_LABEL
+      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => SHIKAKU_LABEL
 
     end
     f.actions
@@ -69,7 +93,37 @@ ActiveAdmin.register Member do
 
   show do |member|
     attributes_table do
-      row :domonkai_id
+      row :domonkai_id ,  :label => DOMONKAI_ID_LABEL
+      row :join_date
+      row :last_name
+      row :first_name
+      row :japanese_last_name
+      row :japanese_first_name
+      row :tea_name
+      row :japanese_tea_name
+      row :email
+      row :sex
+      row :address
+      row :city
+      row :state
+      row :zip
+      row :country
+      row :phone do
+        number_to_phone(member.phone, area_code: true)
+      end
+      row :fax
+      row SHACHU_LABEL do
+        unless member.shachu.nil?
+          member.shachu.last_name
+        else
+          member.shachu
+        end
+      end
+
+      row SHIKAKU_LABEL do
+        member.shikaku_kubun.name
+      end
+
     end
 
     active_admin_comments
