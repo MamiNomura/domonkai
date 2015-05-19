@@ -5,6 +5,9 @@ ActiveAdmin.register JapaneseMember do
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
                 :shikaku_kubun_id
 
+
+  active_admin_importable
+
   DOMONKAI_ID_LABEL = 'ID'
   SHIKAKU_LABEL = 'Shikaku'
   SHACHU_LABEL = 'Shachu'

@@ -6,6 +6,19 @@ ActiveAdmin.register Member do
                 :shikaku_kubun_id
 
   config.per_page = 100
+  #index :download_links => [:csv, :xlsx]
+
+  # active_admin_import :validate => true,
+  #                     :template_object => ActiveAdminImport::Model.new(
+  #                         :hint => "file will be imported with such header format: 'body','title','author'",
+  #                         :csv_headers => ["body","title","author"]
+  #                     )
+
+  active_admin_importable
+
+  # xlsx(:header_style => {:bg_color => 'C0BFBF', :fg_color => '000000' }) do
+  #   delete_columns :id, :created_at, :updated_at
+  # end
 
   #actions :all, :except => [:new, :create, :destroy]
 
