@@ -1,3 +1,4 @@
+#encoding: utf-8
 ActiveAdmin.register Member do
   # allow these params to be updated
   permit_params :domonkai_id, :join_date, :first_name, :last_name,
@@ -14,7 +15,20 @@ ActiveAdmin.register Member do
   #                         :csv_headers => ["body","title","author"]
   #                     )
 
-  active_admin_importable
+  active_admin_import validate: false,
+                      # before_batch_import: proc { |import|
+                      #   puts import.file #current file used
+                      #   puts import.resource #ActiveRecord class to import to
+                      #   puts import.options # options
+                      #   puts import.result # result before bulk iteration
+                      #   puts import.headers # CSV headers
+                      #   puts import.csv_lines #lines to import
+                      #   puts import.model #template_object instance
+                      # },
+                      template_object: ActiveAdminImport::Model.new(
+                          force_encoding: :auto
+                      )
+
 
   # xlsx(:header_style => {:bg_color => 'C0BFBF', :fg_color => '000000' }) do
   #   delete_columns :id, :created_at, :updated_at
@@ -35,6 +49,7 @@ ActiveAdmin.register Member do
   JAPANESE_FIRSTNAME_LABEL = "名前 (Japanese First Name)"
   JAPANESE_CHAMEI_LABEL = "茶名"
   JAPANESE_SHACHU_LABEL =  '社中'
+
 
   # displays the site_id but uses site_info_id for the query
   filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => SHIKAKU_LABEL
@@ -140,6 +155,15 @@ ActiveAdmin.register Member do
     end
 
     active_admin_comments
+  end
+
+
+  action_item only: :index do
+    link_to "Download Excel", members_path(format: "xls")
+  end
+
+  index :download_links => false do
+    # off standard download link
   end
 
 end

@@ -6,7 +6,7 @@ ActiveAdmin.register JapaneseMember do
                 :shikaku_kubun_id
 
 
-  active_admin_importable
+  #active_admin_import
 
   DOMONKAI_ID_LABEL = 'ID'
   SHIKAKU_LABEL = 'Shikaku'
@@ -141,5 +141,14 @@ ActiveAdmin.register JapaneseMember do
       end
     end
 
+  end
+
+
+  action_item only: :index do
+    link_to "Download Excel", members_path(format: "xls")
+  end
+
+  index :download_links => false do
+    # off standard download link
   end
 end

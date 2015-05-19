@@ -3,4 +3,5 @@ class Member < ActiveRecord::Base
   has_many :students, :class_name => "Member", :foreign_key => "sensei_member_id"
   belongs_to :shikaku_kubun
 
+
 end

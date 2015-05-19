@@ -42,11 +42,13 @@ gem 'debugger', group: [:development, :test]
 gem 'pg'
 gem 'activeadmin', '1.0.0.pre1', github: 'activeadmin'
 
+
 gem 'devise', '3.4.1'
 
 gem 'active_skin', '0.0.8'
 gem 'rails_12factor', group: :production
 #gem  'spreadsheet'
 #gem 'activeadmin-axlsx'
-gem 'active_admin_importable'
-#gem 'active_admin_import' , '2.1.0'
+#gem 'active_admin_importable'
+gem 'active_admin_import' , '2.1.2'
+gem 'responsive_active_admin', '~> 0.0.4'
