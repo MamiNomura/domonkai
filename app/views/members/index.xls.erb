@@ -4,20 +4,52 @@
           xmlns:x="urn:schemas-microsoft-com:office:excel"
           xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
           xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name="Sheet1">
+  <Worksheet ss:Name=<%= "As of " +  Date.today.to_s %>>
     <Table>
       <Row>
-        <Cell><Data ss:Type="String">ID</Data></Cell>
-        <Cell><Data ss:Type="String">Name</Data></Cell>
-        <Cell><Data ss:Type="String">Japanese First Name</Data></Cell>
-        <Cell><Data ss:Type="String">Japanese Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Domonkai Id</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">苗字 (Last Name)</Data></Cell>
+        <Cell><Data ss:Type="String">名前 (First Name)</Data></Cell>
+        <Cell><Data ss:Type="String">Shachu</Data></Cell>
+        <Cell><Data ss:Type="String">社中</Data></Cell>
+        <Cell><Data ss:Type="String">Tea Name</Data></Cell>
+        <Cell><Data ss:Type="String">茶名</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Country</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Fax</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Shikaku Kubun</Data></Cell>
+        <Cell><Data ss:Type="String">資格区分</Data></Cell>
+        <Cell><Data ss:Type="String">Language</Data></Cell>
       </Row>
       <% @members.each do |member| %>
           <Row>
             <Cell><Data ss:Type="Number"><%= member.domonkai_id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.last_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.first_name %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= member.japanese_first_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.japanese_last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.japanese_first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.shachu.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.shachu.japanese_last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.tea_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.japanese_tea_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.address %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.city %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.state %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.zip %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.country %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= number_to_phone(member.phone, area_code: true) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= number_to_phone(member.fax, area_code: true) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.shikaku_kubun.name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.shikaku_kubun.japanese_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.language %></Data></Cell>
           </Row>
       <% end %>
     </Table>
