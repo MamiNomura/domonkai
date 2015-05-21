@@ -16,23 +16,20 @@ ActiveAdmin.register Member do
   #                     )
 
   active_admin_import validate: false,
-                      # before_batch_import: proc { |import|
-                      #   puts import.file #current file used
-                      #   puts import.resource #ActiveRecord class to import to
-                      #   puts import.options # options
-                      #   puts import.result # result before bulk iteration
-                      #   puts import.headers # CSV headers
-                      #   puts import.csv_lines #lines to import
-                      #   puts import.model #template_object instance
-                      # },
+                      template: 'import' ,
                       template_object: ActiveAdminImport::Model.new(
                           force_encoding: :auto
                       )
 
 
-  # xlsx(:header_style => {:bg_color => 'C0BFBF', :fg_color => '000000' }) do
-  #   delete_columns :id, :created_at, :updated_at
-  # end
+  sidebar :Download do
+    ul do
+      li link_to "All Members", members_path(format: "xls", shikaku: "all")
+      li link_to "All Kyouju-sha", members_path(format: "xls", shikaku: "kyouju")
+      li link_to "All Koushi ", members_path(format: "xls", shikaku: "koushi")
+      li link_to "All Ippan Members", members_path(format: "xls", shikaku: "ippan")
+    end
+  end
 
   #actions :all, :except => [:new, :create, :destroy]
 
@@ -65,6 +62,7 @@ ActiveAdmin.register Member do
   end
 
   index do
+
     selectable_column
     column DOMONKAI_ID_LABEL, :domonkai_id
     column SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
@@ -91,7 +89,9 @@ ActiveAdmin.register Member do
     end
 
     actions
+
   end
+
 
   form do |f|
     f.inputs do
@@ -157,12 +157,8 @@ ActiveAdmin.register Member do
     active_admin_comments
   end
 
-
-  action_item only: :index do
-    link_to "Download Excel", members_path(format: "xls")
-  end
-
   index :download_links => false do
+    link_to "Download All Members", members_path(format: "xls", shikaku: "all")
     # off standard download link
   end
 

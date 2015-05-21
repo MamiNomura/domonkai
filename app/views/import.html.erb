@@ -1,0 +1,11 @@
+<p>
+  <%= raw(@active_admin_import_model.hint) %>
+</p>
+
+<h2>Import Members</h2>
+
+<%= form_tag import_members_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+<% end %>
+
