@@ -1,0 +1,15 @@
+module Constants
+
+  DOMONKAI_ID_LABEL = 'ID'
+  SHIKAKU_LABEL = 'Shikaku'
+  SHACHU_LABEL = 'Shachu'
+  ADDRESS_LABEL = 'Address'
+  JAPANESE_ADDRESS_LABEL = "住所"
+  JAPANESE_LASTNAME_LABEL = "苗字 （Last Name)"
+  JAPANESE_FIRSTNAME_LABEL = "名前 (First Name)"
+  JAPANESE_CHAMEI_LABEL = "茶名"
+  JAPANESE_SHACHU_LABEL =  "社中"
+  JAPANESE_SHIKAKU_LABEL = "資格区分"
+  JAPANESE_SEX_LABEL = "性別"
+
+end

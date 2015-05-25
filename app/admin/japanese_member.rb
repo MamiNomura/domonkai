@@ -27,18 +27,18 @@ ActiveAdmin.register JapaneseMember do
   config.sort_order = :domonkai_id
 
   # displays the site_id but uses site_info_id for the query
-  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Member.JAPANESE_SHIKAKU_LABEL
-  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  1).collect {|m| [m.japanese_last_name, m.id]} , :label => Member.JAPANESE_SHACHU_LABEL
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
   filter :first_name
   filter :last_name
-  filter :japanese_first_name, :label => Member.JAPANESE_FIRSTNAME_LABEL
-  filter :japanese_last_name, :label => Member.JAPANESE_LASTNAME_LABEL
-  filter :domonkai_id, :label => Member.DOMONKAI_ID_LABEL
+  filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
+  filter :japanese_last_name, :label => Constants::JAPANESE_LASTNAME_LABEL
+  filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
 
   index do
     selectable_column
-    column Member.DOMONKAI_ID_LABEL, :domonkai_id
-    column Member.JAPANESE_SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
+    column Constants::DOMONKAI_ID_LABEL, :domonkai_id
+    column Constants::JAPANESE_SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
       unless member.shachu.nil?
         member.shachu.japanese_last_name
       else
@@ -46,7 +46,7 @@ ActiveAdmin.register JapaneseMember do
       end
     end
 
-    column Member.JAPANESE_SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
+    column Constants::JAPANESE_SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
       member.shikaku_kubun_japanese_name
     end
     column '名前', :japanese_last_name
@@ -55,7 +55,7 @@ ActiveAdmin.register JapaneseMember do
     column :phone  do |member|
       number_to_phone(member.phone, area_code: true)
     end
-    column Member.JAPANESE_ADDRESS_LABEL do |member|
+    column Constants::JAPANESE_ADDRESS_LABEL do |member|
       member.address.to_s + ' ' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s
     end
     actions
@@ -63,15 +63,15 @@ ActiveAdmin.register JapaneseMember do
 
   form do |f|
     f.inputs do
-      f.input :domonkai_id, :label => Member.DOMONKAI_ID_LABEL
+      f.input :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
       f.input :last_name, :as => :string, :include_blank => false
       f.input :first_name, :as => :string, :include_blank => false
-      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_LASTNAME_LABEL
-      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_FIRSTNAME_LABEL
+      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_LASTNAME_LABEL
+      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_FIRSTNAME_LABEL
       f.input :tea_name, :as => :string, :include_blank => false
-      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_CHAMEI_LABEL
+      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_CHAMEI_LABEL
       f.input :email
-      f.input :sex, :as => :select, :collection => ['Male', 'Female', 'N/A'], :include_blank => false, :label => Member.JAPANESE_SEX_LABEL
+      f.input :sex, :as => :select, :collection => ['Male', 'Female', 'N/A'], :include_blank => false, :label => Constants::JAPANESE_SEX_LABEL
       f.input :address
       f.input :city
       f.input :state
@@ -79,8 +79,8 @@ ActiveAdmin.register JapaneseMember do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: 1).collect {|m| [m.japanese_last_name, m.id]} , :label => Member.JAPANESE_SHACHU_LABEL
-      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Member.JAPANESE_SHIKAKU_LABEL
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: 1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
+      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Constants::JAPANESE_SHIKAKU_LABEL
 
     end
     f.actions
@@ -88,23 +88,23 @@ ActiveAdmin.register JapaneseMember do
 
   show do |member|
     attributes_table do
-      row Member.DOMONKAI_ID_LABEL do
+      row Constants::DOMONKAI_ID_LABEL do
         member.domonkai_id
       end
       row :last_name
       row :first_name
-      row Member.JAPANESE_LASTNAME_LABEL do
+      row Constants::JAPANESE_LASTNAME_LABEL do
         member.japanese_last_name
       end
-      row Member.JAPANESE_FIRSTNAME_LABEL do
+      row Constants::JAPANESE_FIRSTNAME_LABEL do
         member.japanese_first_name
       end
       row :tea_name
-      row Member.JAPANESE_CHAMEI_LABEL do
+      row Constants::JAPANESE_CHAMEI_LABEL do
         member.japanese_tea_name
       end
       row :email
-      row Member.JAPANESE_SEX_LABEL do
+      row Constants::JAPANESE_SEX_LABEL do
         member.sex
       end
       row :address
@@ -116,7 +116,7 @@ ActiveAdmin.register JapaneseMember do
         number_to_phone(member.phone, area_code: true)
       end
       row :fax
-      row Member.JAPANESE_SHACHU_LABEL do |member|
+      row Constants::JAPANESE_SHACHU_LABEL do |member|
         unless member.shachu.nil?
           member.shachu.japanese_last_name
         else
@@ -124,7 +124,7 @@ ActiveAdmin.register JapaneseMember do
         end
       end
 
-      row Member.JAPANESE_SHIKAKU_LABEL do |member|
+      row Constants::JAPANESE_SHIKAKU_LABEL do |member|
         member.shikaku_kubun_japanese_name
       end
     end

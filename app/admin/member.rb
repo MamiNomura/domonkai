@@ -55,7 +55,7 @@ ActiveAdmin.register Member do
 
     end
 
-    column Member.SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
+    column Constants::SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
       member.shikaku_kubun_name
     end
     column :last_name
@@ -64,7 +64,7 @@ ActiveAdmin.register Member do
     column :phone do |member|
       number_to_phone(member.phone, area_code: true)
     end
-    column Member.ADDRESS_LABEL do |member|
+    column Constants::ADDRESS_LABEL do |member|
       member.address.to_s + ' ' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s
     end
 
@@ -75,13 +75,13 @@ ActiveAdmin.register Member do
 
   form do |f|
     f.inputs do
-      f.input :domonkai_id, :label => Member.DOMONKAI_ID_LABEL
+      f.input :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
       f.input :last_name, :as => :string, :include_blank => false
       f.input :first_name, :as => :string, :include_blank => false
-      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_LASTNAME_LABEL
-      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_FIRSTNAME_LABEL
+      f.input :japanese_last_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_LASTNAME_LABEL
+      f.input :japanese_first_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_FIRSTNAME_LABEL
       f.input :tea_name, :as => :string, :include_blank => false
-      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => Member.JAPANESE_CHAMEI_LABEL
+      f.input :japanese_tea_name, :as => :string, :include_blank => false, :label => Constants::JAPANESE_CHAMEI_LABEL
       f.input :email
       f.input :sex, :as => :select, :collection => ['Male', 'Female', 'N/A'], :include_blank => false
       f.input :address
@@ -91,8 +91,8 @@ ActiveAdmin.register Member do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Member.SHACHU_LABEL
-      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Member.SHIKAKU_LABEL
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+      f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
 
     end
     f.actions
@@ -100,7 +100,7 @@ ActiveAdmin.register Member do
 
   show do |member|
     attributes_table do
-      row :domonkai_id ,  :label => Member.DOMONKAI_ID_LABEL
+      row :domonkai_id ,  :label => Constants::DOMONKAI_ID_LABEL
       row :last_name
       row :first_name
       row :japanese_last_name
@@ -118,7 +118,7 @@ ActiveAdmin.register Member do
         number_to_phone(member.phone, area_code: true)
       end
       row :fax
-      row Member.SHACHU_LABEL do
+      row Constants::SHACHU_LABEL do
         unless member.shachu.nil?
           member.shachu.last_name
         else
@@ -126,7 +126,7 @@ ActiveAdmin.register Member do
         end
       end
 
-      row Member.SHIKAKU_LABEL do
+      row Constants::SHIKAKU_LABEL do
         member.shikaku_kubun.name
       end
 
