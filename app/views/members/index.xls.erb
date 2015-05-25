@@ -4,7 +4,7 @@
           xmlns:x="urn:schemas-microsoft-com:office:excel"
           xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
           xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name=<%= "As of " +  Date.today.to_s %>>
+  <Worksheet ss:Name="Members">
     <Table>
       <Row>
         <Cell><Data ss:Type="String">Domonkai Id</Data></Cell>
@@ -35,8 +35,8 @@
             <Cell><Data ss:Type="String"><%= member.first_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.japanese_last_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.japanese_first_name %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= member.shachu.last_name %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= member.shachu.japanese_last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.shachu_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= member.japanese_shachu_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.tea_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.japanese_tea_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= member.address %></Data></Cell>

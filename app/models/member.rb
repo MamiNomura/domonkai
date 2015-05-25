@@ -4,8 +4,8 @@ class Member < ActiveRecord::Base
   belongs_to :shikaku_kubun
 
 
-  validates :phone, numericality: { only_integer: true }
-  validates :fax, numericality: { only_integer: true }
+  validates :phone, allow_nil: true,  numericality: { only_integer: true }
+  validates :fax, allow_nil: true,  numericality: { only_integer: true }
   validates :domonkai_id,  presence: true, uniqueness: true
   validates :first_name,  presence: true
   validates :last_name,  presence: true
@@ -13,27 +13,67 @@ class Member < ActiveRecord::Base
   validates :japanese_last_name,  presence: true
 
 
-
-  def self.import(file)
-
-    spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      member = find_by( domonkai_id: row["domonkai_id"]) || new
-      member.attributes = row.to_hash.slice(*accessible_attributes)
-      member.save!
+  def shachu_name
+    unless self.shachu.nil?
+      self.shachu.last_name
     end
   end
 
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-      when ".csv" then Csv.new(file.path, nil, :ignore)
-      when ".xls" then Excel.new(file.path, nil, :ignore)
-      when ".xlsx" then Excelx.new(file.path, nil, :ignore)
-      else raise "Unknown file type: #{file.original_filename}"
+  def japanese_shachu_name
+    unless self.shachu.nil?
+      self.shachu.japanese_last_name
     end
   end
 
+  def shikaku_kubun_name
+    unless self.shikaku_kubun.nil?
+      self.shikaku_kubun.name
+    end
+  end
 
+  def shikaku_kubun_japanese_name
+    unless self.shikaku_kubun.nil?
+      self.shikaku_kubun.japanese_name
+    end
+  end
+
+  def self.allowed_attributes
+    [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
+                    'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language' ]
+  end
+
+
+  def self.DOMONKAI_ID_LABEL
+    'ID'
+  end
+  def self.SHIKAKU_LABEL
+    'Shikaku'
+  end
+  def self.SHACHU_LABEL
+    'Shachu'
+  end
+  def self.JAPANESE_ADDRESS_LABEL
+    "住所"
+  end
+  def self.JAPANESE_LASTNAME_LABEL
+    "苗字 （Last Name)"
+  end
+  def self.JAPANESE_FIRSTNAME_LABEL
+    "名前 (First Name)"
+  end
+  def self.JAPANESE_CHAMEI_LABEL
+    "茶名"
+  end
+  def self.JAPANESE_SHACHU_LABEL
+    "社中"
+  end
+  def self.JAPANESE_SHIKAKU_LABEL
+    "資格区分"
+  end
+  def self.JAPANESE_SEX_LABEL
+    "性別"
+  end
+  def self.ADDRESS_LABEL
+    "Address"
+  end
 end

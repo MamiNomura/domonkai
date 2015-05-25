@@ -13,7 +13,9 @@ class MembersController < ApplicationController
       else
         @members = Member.order(:domonkai_id)
     end
+
     logger.info "members is #{@members}"
+    # export
     respond_to do |format|
       format.csv { send_data @members.to_csv }
       format.xls # { send_data @members.to_csv(col_sep: "\t") }

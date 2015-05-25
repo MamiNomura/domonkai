@@ -37,7 +37,7 @@ gem 'spring', '1.1.3',        group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+#gem 'debugger', group: [:development, :test]
 #gem 'mysql2', '0.3.17'
 gem 'pg'
 gem 'activeadmin', '1.0.0.pre1', github: 'activeadmin'
@@ -52,3 +52,5 @@ gem 'rails_12factor', group: :production
 #gem 'active_admin_importable'
 gem 'active_admin_import' , '2.1.2'
 gem 'responsive_active_admin', '~> 0.0.4'
+gem 'roo'
+gem "iconv", "~> 1.0.3"
