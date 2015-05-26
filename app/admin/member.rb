@@ -29,11 +29,11 @@ ActiveAdmin.register Member do
 
 
   # displays the site_id but uses site_info_id for the query
-  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Member.SHIKAKU_LABEL
-  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Member.SHACHU_LABEL
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
   filter :first_name
   filter :last_name
-  filter :domonkai_id, :label => Member.DOMONKAI_ID_LABEL
+  filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
 
   controller do
     def scoped_collection
@@ -44,8 +44,8 @@ ActiveAdmin.register Member do
   index do
 
     selectable_column
-    column Member.DOMONKAI_ID_LABEL, :domonkai_id
-    column Member.SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
+    column Constants::DOMONKAI_ID_LABEL, :domonkai_id
+    column Constants::SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
       unless member.shachu.nil?
         member.shachu.last_name
 

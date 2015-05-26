@@ -9,8 +9,6 @@ ActiveAdmin.register JapaneseMember do
   #active_admin_import
   title =  "会員名簿"
 
-
-
   config.per_page = 100
   controller do
     before_filter { @page_title = title }

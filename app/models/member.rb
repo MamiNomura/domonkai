@@ -39,41 +39,7 @@ class Member < ActiveRecord::Base
 
   def self.allowed_attributes
     [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
-                    'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language' ]
+                    'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id' ]
   end
 
-
-  def self.DOMONKAI_ID_LABEL
-    'ID'
-  end
-  def self.SHIKAKU_LABEL
-    'Shikaku'
-  end
-  def self.SHACHU_LABEL
-    'Shachu'
-  end
-  def self.JAPANESE_ADDRESS_LABEL
-    "住所"
-  end
-  def self.JAPANESE_LASTNAME_LABEL
-    "苗字 （Last Name)"
-  end
-  def self.JAPANESE_FIRSTNAME_LABEL
-    "名前 (First Name)"
-  end
-  def self.JAPANESE_CHAMEI_LABEL
-    "茶名"
-  end
-  def self.JAPANESE_SHACHU_LABEL
-    "社中"
-  end
-  def self.JAPANESE_SHIKAKU_LABEL
-    "資格区分"
-  end
-  def self.JAPANESE_SEX_LABEL
-    "性別"
-  end
-  def self.ADDRESS_LABEL
-    "Address"
-  end
 end

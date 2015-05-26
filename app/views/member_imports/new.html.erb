@@ -11,18 +11,34 @@ permit_params :domonkai_id, :join_date, :first_name, :last_name,
 
 <ul>
   <% Member.columns.each do |column| %>
-      <% if column.name.in? ["domonkai_id", "last_name", "first_name", "japanese_last_name", "japanese_first_name"] %>
+      <% if column.name.in? Member.allowed_attributes %>
           <li>
             <strong><%= column.name %></strong> -
             <%= column.type.to_s.titleize %> type
           </li>
       <% end %>
   <% end %>
+  <li>
+    <strong>shikaku</strong> - String type
+  </li>
 </ul>
 
+<strong>Note:</strong>
+<ol>
 
-<p>If an <strong>domonkai_id</strong> is supplied it will update the matching record instead of creating a new one.</p>
 
+<li>If an <strong>domonkai_id</strong> is supplied it will update the matching record instead of creating a new one.</li>
+<li>Use following number for shikaku_kubun_id column
+<ul>
+<% ShikakuKubun.all.each do |shikaku| %>
+   <li>
+     <%= shikaku.name %>: <%= shikaku.id %>
+   </li>
+<% end %>
+</ul>
+</li>
+<li>Use the last name of her/his sensei for shachu column</li>
+</ol>
 
 <%= form_for @member_import do |f| %>
     <% if @member_import.errors.any? %>

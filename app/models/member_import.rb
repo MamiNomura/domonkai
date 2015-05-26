@@ -39,10 +39,13 @@ class MemberImport
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      member = Member.find_by(domonkai_id: row["id"]) || Member.new
-      member.attributes = row.to_hash.slice(*Member.allowed_attributes)
-      #member.attributes = row.to_hash.slice(:domonkai_id, :first_name, :last_name, :japanese_last_name, :japanese_last_name, :fax, :email, :phone, :tea_name, :japanese_tea_name, :language)
-
+      member = Member.find_by(domonkai_id: row["domonkai_id"]) || Member.new
+      attributes = row.to_hash.slice(*Member.allowed_attributes)
+      unless row["shachu"].nil?
+        sensei = Member.find_by(last_name: row["shachu"])
+        attributes[:sensei_member_id] = sensei.id
+      end
+      member.attributes = attributes
       member
     end
   end
@@ -51,7 +54,7 @@ class MemberImport
     case File.extname(file.original_filename)
     when ".csv" then Roo::CSV.new(file.path, csv_options: {encoding: "utf-8"})
     when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+    when ".xlsx" then Roo::Excelx.new(file.path)
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
