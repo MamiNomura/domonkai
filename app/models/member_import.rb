@@ -43,7 +43,9 @@ class MemberImport
       attributes = row.to_hash.slice(*Member.allowed_attributes)
       unless row["shachu"].nil?
         sensei = Member.find_by(last_name: row["shachu"])
-        attributes[:sensei_member_id] = sensei.id
+        unless sensei.nil?
+          attributes[:sensei_member_id] = sensei.id
+        end
       end
       member.attributes = attributes
       member
@@ -53,7 +55,7 @@ class MemberImport
   def open_spreadsheet
     case File.extname(file.original_filename)
     when ".csv" then Roo::CSV.new(file.path, csv_options: {encoding: "utf-8"})
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+    when ".xls" then Roo::Excel.new(file.path)
     when ".xlsx" then Roo::Excelx.new(file.path)
     else raise "Unknown file type: #{file.original_filename}"
     end

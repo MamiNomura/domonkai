@@ -12,6 +12,17 @@ class Member < ActiveRecord::Base
   validates :japanese_first_name,  presence: true
   validates :japanese_last_name,  presence: true
 
+  def phone=(phone)
+    unless phone.nil?
+      write_attribute(:phone, phone.gsub(/\D/, ''))
+    end
+  end
+
+  def fax=(fax)
+    unless fax.nil?
+      write_attribute(:fax, fax.gsub(/\D/, ''))
+    end
+  end
 
   def shachu_name
     unless self.shachu.nil?
@@ -39,7 +50,9 @@ class Member < ActiveRecord::Base
 
   def self.allowed_attributes
     [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
-                    'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id' ]
+      'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id',
+      'address', 'city', 'zip', 'country'
+    ]
   end
 
 end

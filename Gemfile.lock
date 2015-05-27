@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: cef68b7be82699f9abdc46c98e4fa6a471cb1761
+  revision: 9c46b14ea0d9b3aaaa3d7520555c9959d06ce7f3
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -155,6 +155,11 @@ GEM
     roo (2.0.0)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
+    roo-xls (1.0.0)
+      nokogiri
+      roo (>= 2.0.0beta1, < 3)
+      spreadsheet (> 0.9.0)
+    ruby-ole (1.2.11.8)
     rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.4)
@@ -165,6 +170,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    spreadsheet (1.0.3)
+      ruby-ole (>= 1.0)
     spring (1.1.3)
     sprockets (2.11.3)
       hike (~> 1.2)
@@ -208,6 +215,7 @@ DEPENDENCIES
   rails_12factor
   responsive_active_admin (~> 0.0.4)
   roo
+  roo-xls
   sass-rails (= 4.0.4)
   sdoc (= 0.4.1)
   spring (= 1.1.3)
