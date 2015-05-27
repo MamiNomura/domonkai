@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525153900) do
+ActiveRecord::Schema.define(version: 20150519022327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150525153900) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "members", force: true do |t|
-    t.string   "domonkai_id",         limit: 20,                     null: false
+    t.integer  "domonkai_id",                                        null: false
     t.string   "first_name",          limit: 50,                     null: false
     t.string   "last_name",           limit: 50,                     null: false
     t.string   "japanese_first_name", limit: 50
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20150525153900) do
     t.string   "japanese_tea_name"
     t.string   "email"
     t.string   "sex",                 limit: 10,  default: "Female"
-    t.string   "address",             limit: 100
-    t.string   "city",                limit: 50
+    t.string   "address"
+    t.string   "city",                limit: 100
     t.string   "state",               limit: 2
     t.string   "zip",                 limit: 15
     t.string   "country",             limit: 20
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150525153900) do
     t.string   "language"
   end
 
+  add_index "members", ["domonkai_id"], name: "index_members_on_domonkai_id", using: :btree
   add_index "members", ["japanese_last_name", "japanese_first_name"], name: "index_members_on_japanese_last_name_and_japanese_first_name", using: :btree
   add_index "members", ["last_name", "first_name"], name: "index_members_on_last_name_and_first_name", using: :btree
   add_index "members", ["sensei_member_id"], name: "index_members_on_sensei_member_id", using: :btree

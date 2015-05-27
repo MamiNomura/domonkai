@@ -11,5 +11,8 @@ module Constants
   JAPANESE_SHACHU_LABEL =  "社中"
   JAPANESE_SHIKAKU_LABEL = "資格区分"
   JAPANESE_SEX_LABEL = "性別"
-
+  NAME_LABEL = "Name"
+  JAPANESE_NAME_LABEL = '名前'
+  INFO_LABEL = 'Info'
+  JAPANESE_INFO_LABEL = '情報'
 end

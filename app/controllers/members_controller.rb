@@ -5,11 +5,11 @@ class MembersController < ApplicationController
     logger.info "params shikaku #{params[:shikaku]}"
     case params[:shikaku]
       when "kyouju"
-        @members = Member.where( shikaku_kubun_id: 1).order(:domonkai_id)
+        @members = Member.where( shikaku_kubun_id: [1,2]).order(:domonkai_id)
       when "koushi"
-        @members = Member.where( shikaku_kubun_id: 2).order(:domonkai_id)
-      when "ippan"
         @members = Member.where( shikaku_kubun_id: 3).order(:domonkai_id)
+      when "ippan"
+        @members = Member.where( shikaku_kubun_id: 4).order(:domonkai_id)
       else
         @members = Member.order(:domonkai_id)
     end

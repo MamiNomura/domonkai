@@ -31,8 +31,8 @@ ActiveAdmin.register Member do
 
 
   # displays the site_id but uses site_info_id for the query
-  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
-  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+  #filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
+  #filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
@@ -60,14 +60,14 @@ ActiveAdmin.register Member do
     column Constants::SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
       member.shikaku_kubun_name
     end
-    column :last_name
-    column :first_name
-    column :email
-    column :phone do |member|
-      number_to_phone(member.phone, area_code: true)
+    column Constants::NAME_LABEL , sortable: 'last_name' do |member|
+      member.first_name.to_s + ' ' + member.last_name.to_s
     end
-    column Constants::ADDRESS_LABEL do |member|
-      member.address.to_s + ' ' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s
+
+    column Constants::INFO_LABEL , sortable: 'city' do |member|
+      raw(member.address.to_s + ' <br/>' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s +
+              '<br/> ' + number_to_phone(member.phone, area_code: true) + '<br/> ' + member.email.to_s)
+
     end
 
     actions
@@ -93,7 +93,7 @@ ActiveAdmin.register Member do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
 
     end

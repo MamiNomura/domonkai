@@ -27,8 +27,8 @@ ActiveAdmin.register JapaneseMember do
 
   # displays the site_id but uses site_info_id for the query
   # if heroku does not work comment out
-  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
-  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
+  #filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
+  #filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
@@ -49,15 +49,17 @@ ActiveAdmin.register JapaneseMember do
     column Constants::JAPANESE_SHIKAKU_LABEL , sortable: 'shikaku_kubuns.name' do |member|
       member.shikaku_kubun_japanese_name
     end
-    column '名前', :japanese_last_name
-    column '苗字', :japanese_first_name
-    column :email
-    column :phone  do |member|
-      number_to_phone(member.phone, area_code: true)
+
+    column Constants::JAPANESE_NAME_LABEL , sortable: 'last_name' do |member|
+      member.japanese_last_name.to_s + ' ' + member.japanese_first_name.to_s
     end
-    column Constants::JAPANESE_ADDRESS_LABEL do |member|
-      member.address.to_s + ' ' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s
+
+    column Constants::INFO_LABEL , sortable: 'city' do |member|
+      raw(member.address.to_s + ' <br/>' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s +
+              '<br/> ' + number_to_phone(member.phone, area_code: true) + '<br/> ' + member.email.to_s)
+
     end
+
     actions
   end
 
@@ -79,7 +81,7 @@ ActiveAdmin.register JapaneseMember do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: 1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Constants::JAPANESE_SHIKAKU_LABEL
 
     end

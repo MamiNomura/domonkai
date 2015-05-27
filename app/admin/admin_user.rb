@@ -1,6 +1,6 @@
-ActiveAdmin.setup do |config|
-  config.download_links = false
-end
+#ActiveAdmin.setup do |config|
+#  config.download_links = false
+#end
 
 ActiveAdmin.register AdminUser do
   menu priority: 2
