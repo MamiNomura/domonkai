@@ -5,9 +5,10 @@ ActiveAdmin.register JapaneseMember do
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
                 :shikaku_kubun_id
 
-
-  #active_admin_import
   title =  "会員名簿"
+  menu priority: 5, label: title
+  #active_admin_import
+
 
   config.per_page = 100
   controller do
@@ -19,7 +20,7 @@ ActiveAdmin.register JapaneseMember do
 
   #actions :all, :except => [:new, :create, :destroy]
 
-  menu label: title
+
 
   # default sort column
   config.sort_order = :domonkai_id
