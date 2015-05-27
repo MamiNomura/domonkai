@@ -31,8 +31,8 @@ ActiveAdmin.register Member do
 
 
   # displays the site_id but uses site_info_id for the query
-  #filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
-  #filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.all.collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL

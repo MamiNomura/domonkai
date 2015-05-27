@@ -26,8 +26,9 @@ ActiveAdmin.register JapaneseMember do
   config.sort_order = :domonkai_id
 
   # displays the site_id but uses site_info_id for the query
-  #filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
-  #filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
+  # if heroku does not work comment out
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  1).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
