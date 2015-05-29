@@ -8,7 +8,7 @@ ActiveAdmin.register Member do
 
   menu priority: 4
 
-  config.per_page = 100
+  config.per_page = 30
   #index :download_links => [:csv, :xlsx]
 
   sidebar :Download do
@@ -46,7 +46,9 @@ ActiveAdmin.register Member do
   index do
 
     selectable_column
-    column Constants::DOMONKAI_ID_LABEL, :domonkai_id
+    column Constants::DOMONKAI_ID_LABEL, sortable: 'domonkai_id' do |member|
+       member.domonkai_id.to_i
+    end
     column Constants::SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
       unless member.shachu.nil?
         member.shachu.last_name
@@ -66,7 +68,7 @@ ActiveAdmin.register Member do
 
     column Constants::INFO_LABEL , sortable: 'city' do |member|
       raw(member.address.to_s + ' <br/>' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s +
-              '<br/> ' + number_to_phone(member.phone, area_code: true) + '<br/> ' + mail_to(member.email.to_s))
+              '<br/> ' + number_to_phone(member.phone, area_code: true).to_s + '<br/> ' + mail_to(member.email.to_s))
 
     end
 
