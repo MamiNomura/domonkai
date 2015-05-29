@@ -32,7 +32,7 @@ env
 venv
 htmlcov
 
-
+seed-data
 celerybeat-schedule
 coverage.xml
 nosetests.xml
