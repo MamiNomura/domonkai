@@ -12,7 +12,7 @@ class CreateMembers < ActiveRecord::Migration
       t.string :sex, limit: 10 , default: "Female"
       t.string :address, limit: 255
       t.string :city, limit: 100
-      t.string :state, limit: 2
+      t.string :state, limit: 20
       t.string :zip, limit: 15
       t.string :country, limit:20
       t.string :phone, limit: 15

@@ -51,7 +51,7 @@ class Member < ActiveRecord::Base
   def self.allowed_attributes
     [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
       'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id',
-      'address', 'city', 'zip', 'country'
+      'address', 'city', 'zip', 'state', 'country'
     ]
   end
 

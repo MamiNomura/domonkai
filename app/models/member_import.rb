@@ -40,6 +40,8 @@ class MemberImport
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       member = Member.find_by(domonkai_id: row["domonkai_id"]) || Member.new
+      # remove .0 from zip
+      row["zip"] = row["zip"].to_s.sub(/.0$/, '')
       attributes = row.to_hash.slice(*Member.allowed_attributes)
       unless row["shachu"].nil?
         sensei = Member.find_by(last_name: row["shachu"])

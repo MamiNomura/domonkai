@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150519022327) do
     t.string   "sex",                 limit: 10,  default: "Female"
     t.string   "address"
     t.string   "city",                limit: 100
-    t.string   "state",               limit: 2
+    t.string   "state",               limit: 20
     t.string   "zip",                 limit: 15
     t.string   "country",             limit: 20
     t.string   "phone",               limit: 15
