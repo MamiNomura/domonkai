@@ -27,8 +27,8 @@ ActiveAdmin.register JapaneseMember do
 
   # displays the site_id but uses site_info_id for the query
   # if heroku does not work comment out
-  #filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
-  #filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
+  filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.japanese_name, s.id]}, :label => Constants::JAPANESE_SHIKAKU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
