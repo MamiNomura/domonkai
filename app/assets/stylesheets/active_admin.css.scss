@@ -16,3 +16,49 @@
 //
 //   .status_tag { background: #6090DB; }
 @import "responsive_active_admin";
+
+
+//Add the Website's logo. This is displayed on the top-left corner of the page.
+$skinLogo: url("") no-repeat 0 0;
+
+
+$skinActiveColor: #9ade12;
+//$skinActiveColor: #437f0a;
+
+//Applied to the main header of Active Admin
+$skinHeaderBck: #684908;
+
+//Applied to the header of AA filters.
+$panelHeaderBck: #684908;
+$skinTextTable: #000000;
+
+@import "active_skin";
+
+body.active_admin {
+  font-size: 15px ;
+
+  .attributes_table table th, .attributes_table table td {
+    padding: 10px 0;
+    font-family:'Source Sans Pro', sans-serif;
+    font-size: 16px ;
+    color:#000000;
+  }
+  .attributes_table table th {
+    font-weight:normal;
+    font-size: 13px ;
+    text-transform:uppercase;
+  }
+
+}
+#header h1.site_title {
+  //background-color: black;
+  /* background: url("") no-repeat 0 0; */
+  padding-left: 50px;
+  color:  #684908;
+  text-indent: 0px;
+
+}
+#header ul.tabs > li {
+  font-size: 15px;
+  margin: 0;
+}

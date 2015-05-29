@@ -56,7 +56,7 @@ ActiveAdmin.register JapaneseMember do
 
     column Constants::INFO_LABEL , sortable: 'city' do |member|
       raw(member.address.to_s + ' <br/>' + member.city.to_s + ' ' + member.state.to_s + ' ' + member.zip.to_s +
-              '<br/> ' + number_to_phone(member.phone, area_code: true) + '<br/> ' + member.email.to_s)
+              '<br/> ' + number_to_phone(member.phone, area_code: true) + '<br/> ' + mail_to(member.email.to_s))
 
     end
 
