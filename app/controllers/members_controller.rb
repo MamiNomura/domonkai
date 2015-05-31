@@ -18,6 +18,7 @@ class MembersController < ApplicationController
     # export
     respond_to do |format|
       format.csv { send_data @members.to_csv }
+      format.text
       format.xls # { send_data @members.to_csv(col_sep: "\t") }
     end
   end

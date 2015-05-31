@@ -133,16 +133,29 @@ ActiveAdmin.register JapaneseMember do
 
   end
 
+
+  # batch actions
+  batch_action :send_emails do |ids|
+    @members = []
+    Member.find(ids).each do |member|
+      @members << member
+    end
+    render :mylist
+  end
+
+  batch_action :destroy, false
+
   action_item only: :index do
     link_to "Import Members", new_member_imports_path
   end
 
-  sidebar :Download do
+  sidebar :Download, only: :index do
     ul do
       li link_to "All Members", members_path(format: "xls", shikaku: "all")
       li link_to "All Kyouju-sha", members_path(format: "xls", shikaku: "kyouju")
       li link_to "All Koushi ", members_path(format: "xls", shikaku: "koushi")
       li link_to "All Ippan Members", members_path(format: "xls", shikaku: "ippan")
     end
+
   end
 end

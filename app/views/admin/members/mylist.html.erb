@@ -1,0 +1,24 @@
+<h3>Email List (Please copy and paste):</h3>
+
+<% @members.each do |member| %><% unless member.email.nil? %><%= member.email %>,<% end %><% end %>
+
+<p></p>
+<h4>Names</h4>
+<ul>
+  <% @members.each do |member| %>
+      <% unless member.email.nil? %>
+          <li> <%= member.first_name %> <%=member.last_name %> </li>
+      <% end %>
+  <% end %>
+</ul>
+
+
+<p></p>
+<h4>These people are not included in the list since they do not have email address:</h4>
+<ul>
+  <% @members.each do |member| %>
+      <% if member.email.nil? %>
+          <li> <%= member.first_name %> <%=member.last_name %> </li>
+      <% end %>
+  <% end %>
+</ul>

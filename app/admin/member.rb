@@ -140,14 +140,21 @@ ActiveAdmin.register Member do
   end
 
 
+  # batch actions
+  batch_action :send_emails do |ids|
+    @members = []
+    Member.find(ids).each do |member|
+      @members << member
+    end
+    render :mylist
+  end
+
+  batch_action :destroy, false
+
   action_item only: :index do
     link_to "Import Members", new_member_imports_path
   end
 
 
-  index :download_links => false do
-    link_to "Download All Members", members_path(format: "xls", shikaku: "all")
-    # off standard download link
-  end
 
 end
