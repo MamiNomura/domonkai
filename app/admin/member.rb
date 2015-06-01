@@ -19,7 +19,14 @@ ActiveAdmin.register Member do
       li link_to "All Ippan Members", members_path(format: "xls", shikaku: "ippan")
     end
   end
-
+  sidebar :Labels, only: :index do
+    ul do
+      li link_to "All Members Lables", labels_path(shikaku: "all")
+      li link_to "All Kyouju-sha Lables", labels_path(shikaku: "kyouju")
+      li link_to "All Koushi Lables", labels_path(shikaku: "koushi")
+      li link_to "All Ippan Lables", labels_path(shikaku: "ippan")
+    end
+  end
   #actions :all, :except => [:new, :create, :destroy]
 
   #menu :parent => "Member"

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 9c46b14ea0d9b3aaaa3d7520555c9959d06ce7f3
+  revision: dce083189c46ad64c8c9a2d34805a080af685bbe
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -107,15 +107,22 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.6.2)
-    minitest (5.6.1)
+    minitest (5.7.0)
     multi_json (1.11.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
+    pawn (0.0.0)
+    pdf-core (0.5.1)
     pg (0.18.2)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     polyglot (0.3.5)
+    prawn (2.0.1)
+      pdf-core (~> 0.5.1)
+      ttfunk (~> 1.4.0)
+    prawn-labels (1.2.3)
+      prawn (~> 2.0.0, >= 1.0.0)
     rack (1.5.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -188,6 +195,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.4.0)
     turbolinks (2.5.2)
       coffee-rails
     tzinfo (1.2.2)
@@ -210,7 +218,9 @@ DEPENDENCIES
   iconv (~> 1.0.3)
   jbuilder (= 2.2.4)
   jquery-rails (= 3.1.2)
+  pawn (~> 0.0.0)
   pg
+  prawn-labels
   rails (= 4.1.4)
   rails_12factor
   responsive_active_admin (~> 0.0.4)

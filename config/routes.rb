@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   end
 
   resource :member_imports
-
+  resource :labels
+  resource :books
   # Example resource route with options:
   #   resources :products do
   #     member do

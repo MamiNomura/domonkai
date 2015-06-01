@@ -55,3 +55,7 @@ gem 'responsive_active_admin', '~> 0.0.4'
 gem 'roo'
 gem "iconv", "~> 1.0.3"
 gem 'roo-xls'
+gem 'pawn', '~> 0.0.0'
+gem "prawn-labels"
+
+#gem 'prawnto', '~> 0.1.1'
