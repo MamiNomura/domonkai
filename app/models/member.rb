@@ -4,8 +4,8 @@ class Member < ActiveRecord::Base
   belongs_to :shikaku_kubun
 
 
-  validates :phone, allow_nil: true,  numericality: { only_integer: true }
-  validates :fax, allow_nil: true,  numericality: { only_integer: true }
+  
+
   validates :domonkai_id,  presence: true, uniqueness: true
   validates :first_name,  presence: true
   validates :last_name,  presence: true
