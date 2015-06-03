@@ -27,6 +27,12 @@ ActiveAdmin.register Member do
       li link_to "All Ippan Lables", labels_path(shikaku: "ippan")
     end
   end
+
+  sidebar :Books, only: :index do
+    ul do
+      li link_to "Domonkai Book", books_path(format: "pdf")
+    end
+  end
   #actions :all, :except => [:new, :create, :destroy]
 
   #menu :parent => "Member"

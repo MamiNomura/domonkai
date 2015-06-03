@@ -167,7 +167,11 @@ ActiveAdmin.register JapaneseMember do
       li link_to "All Kyouju-sha Lables", labels_path(shikaku: "kyouju")
       li link_to "All Koushi Lables", labels_path(shikaku: "koushi")
       li link_to "All Ippan Lables", labels_path(shikaku: "ippan")
+    end
+  end
 
+  sidebar :Books, only: :index do
+    ul do
       li link_to "Domonkai Book", books_path(format: "pdf")
     end
   end
