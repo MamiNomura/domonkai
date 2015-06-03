@@ -13,20 +13,14 @@ class BookPdf < Prawn::Document
 
     front_page
     header
-    move_down 20
 
 
-    define_grid(:columns => 3, :rows => 6, :gutter => 10)
-    grid.show_all
-
+    member_label_page
     footer
     final_page
 
   end
 
-  def order_number
-    text "#{@order.order_number}", size: 30, style: :bold
-  end
 
   def front_page
 
@@ -106,9 +100,104 @@ class BookPdf < Prawn::Document
     number_pages string, options
   end
 
-  def final_page
-    start_new_page
+  def create_grid
+    define_grid(:columns => 3, :rows => 5, :gutter => 5, :row_gutter => 0, :column_gutter => 0)
+    #grid.show_all
+  end
+  def member_label_page
 
+    create_grid
+
+    i = 0
+    j = 0
+    @members.each do |member|
+
+      member_one = '(' + member.language.to_s + ') '+ member.last_name.to_s + ', ' + member.first_name.to_s
+      member_two = member.japanese_last_name.to_s + ' ' + member.japanese_first_name.to_s
+
+      member_list = []
+
+      if member.shikaku_kubun_id.eql? 4
+        two = '#05-' + member.domonkai_id.to_s
+      else
+        two = '#05-' + member.domonkai_id.to_s + ' ' + member.shikaku_kubun.japanese_name.to_s
+      end
+      member_list << two
+
+      unless [1,2].include?(member.shikaku_kubun_id?)
+        tea_names = member.tea_name.to_s + ' ' + member.japanese_tea_name.to_s
+        tea_names = tea_names.strip
+        unless tea_names.nil?
+          tea_names = ' ' + tea_names
+        end
+
+        unless member.shachu.nil?
+          member_list <<   member.shachu_name.to_s + ' 社中' + tea_names
+        else
+          member_list << '個人'+ tea_names
+        end
+
+      end
+
+
+      if member.country.eql? "USA"
+        member_address = member.city.to_s + ', ' + member.state.to_s + ' ' + member.zip
+      else
+        member_address = member.city.to_s + ', ' + member.state.to_s + ' ' + member.zip + ' ' + member.country.to_s
+      end
+
+      grid([i,j],[i,j]).bounding_box do
+
+        if i.eql? 0
+        end
+        move_down 20
+        text "<u><b>#{member_one}</b></u>", size: 11 , :inline_format => true
+        move_down 2
+        font "fonts/aozoramincho-readme-ttf/AozoraMinchoRegular.ttf" do
+          text "#{member_two}"
+          move_down 3
+          unless member_list.nil?
+            for item in member_list do
+              text item, :size => 9
+              move_down 2
+            end
+          end
+          move_down 3
+          text member.address.to_s , :size => 10
+          move_down 2
+          text member_address , :size => 10
+          move_down 5
+          unless member.phone.nil?
+            text "Phone: #{ActionController::Base.helpers.number_to_phone(member.phone, area_code: true).to_s}" , :size => 9
+            move_down 2
+          end
+          unless member.fax.nil?
+            text "Fax: #{ActionController::Base.helpers.number_to_phone(member.fax, area_code: true).to_s}" , :size => 9
+            move_down 2
+          end
+          unless member.email.nil?
+            text "Email: #{member.email}" , :size => 10
+            move_down 2
+          end
+        end
+      end
+      j+=1
+      if j == 3
+        j = 0
+        i+=1
+      end
+      if i == 5
+        i = 0
+        start_new_page
+        create_grid
+      end
+
+    end
+  end
+
+  def final_page
+
+    start_new_page
     move_down 20
     font "fonts/aozoramincho-readme-ttf/AozoraMinchoHeavy.ttf" do
       text "教授者 資格者", :align => :center, :size => 14
@@ -116,8 +205,7 @@ class BookPdf < Prawn::Document
     move_down 10
 
 
-    text "Teachers & Instructors", :align => :center, :size => 14
-
+    text "<u>Teachers & Instructors</u>", :align => :center, :size => 14 , :inline_format => true
 
 
     kyouju = Member.where(shikaku_kubun_id: 1).order(:domonkai_id)
@@ -131,7 +219,7 @@ class BookPdf < Prawn::Document
         text "教授 (取次者)", :align => :center, :size => 13
       end
       move_down 5
-      text "Kyojusha - Teacher", :align => :center, :size => 12
+      text "<u>Kyojusha - Teacher</u>", :align => :center, :size => 12 , :inline_format => true
       move_down 25
 
 
@@ -141,7 +229,7 @@ class BookPdf < Prawn::Document
 
         font "fonts/aozoramincho-readme-ttf/AozoraMinchoRegular.ttf" do
           text "#{member_info}", size: 10
-          move_down 3
+          move_down 4
         end
       end
     end
@@ -152,7 +240,7 @@ class BookPdf < Prawn::Document
         text "講師 (取次者)", :align => :center, :size => 13
       end
       move_down 5
-      text "Kyojusha - Teacher", :align => :center, :size => 12
+      text "<u>Kyojusha - Teacher</u>", :align => :center, :size => 12 , :inline_format => true
       move_down 25
 
 
@@ -162,7 +250,7 @@ class BookPdf < Prawn::Document
 
         font "fonts/aozoramincho-readme-ttf/AozoraMinchoRegular.ttf" do
           text "#{member_info}", size: 10
-          move_down 3
+          move_down 4
         end
       end
     end
@@ -174,7 +262,7 @@ class BookPdf < Prawn::Document
         text "資格者", :align => :center, :size => 13
       end
       move_down 5
-      text "Shikakusha - Qualified Instructors", :align => :center, :size => 12
+      text "<u>Shikakusha - Qualified Instructors</u>", :align => :center, :size => 12 , :inline_format => true
       move_down 15
 
 
@@ -184,101 +272,13 @@ class BookPdf < Prawn::Document
 
         font "fonts/aozoramincho-readme-ttf/AozoraMinchoRegular.ttf" do
           text "#{member_info}", size: 10
-          move_down 3
+          move_down 4
         end
       end
     end
 
 
 
-  end
-
-  def line_items
-    move_down 20
-    table member_rows do
-      row(0).font_style = :bold
-      columns(1..3).align = :right
-      #self.row_colors = ["DDDDDD", "FFFFFF"]
-      self.header = false
-    end
-  end
-
-  def member_rows
-    @members.each do |member|
-    [member.last_name + member.first_name]
-    end
-  end
-  def line_item_rows
-    [["Product", "Qty", "Unit Price", "Full Price"]] +
-        @order.line_items.map do |item|
-          [item.name, item.quantity, price(item.unit_price), price(item.full_price)]
-        end
-  end
-
-  def price(num)
-    @view.number_to_currency(num)
-  end
-
-  def total_price
-    move_down 15
-    text "Total Price: #{price(@order.total_price)}", size: 16, style: :bold
-  end
-
-
-  private
-
-  def generate_grid()
-    define_grid({ :columns  => 3,:rows   => 6})
-
-  end
-
-  def row_col_from_index(index)
-    page, new_index = index.divmod(grid.rows * grid.columns)
-    if new_index == 0 and page > 0
-      start_new_page
-      generate_grid
-      return [0,0]
-    end
-    return new_index.divmod(grid.columns)
-  end
-
-  def create_label(index, record, options = {},  &block)
-    p = row_col_from_index(index)
-
-    shrink_text(record) if options[:shrink_to_fit] == true
-
-    b = grid(p.first, p.last)
-
-    if options[:vertical_text]
-      rotate(270, :origin => b.top_left) do
-        translate(0, b.width) do
-          bounding_box b.top_left, :width => b.height, :height => b.width do
-            yield record
-          end
-        end
-      end
-    else
-      bounding_box b.top_left, :width => b.width, :height => b.height do
-        yield record
-      end
-    end
-
-  end
-
-  def shrink_text(record)
-    linecount = (split_lines = record.split("\n")).length
-
-    # 30 is estimated max character length per line.
-    split_lines.each {|line| linecount += line.length / 30 }
-
-    # -10 accounts for the overflow margins
-    rowheight = grid.row_height - 10
-
-    if linecount <= rowheight / 12.floor
-      font_size = 12
-    else
-      font_size = rowheight / (linecount + 1)
-    end
   end
 
 
