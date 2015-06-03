@@ -155,7 +155,7 @@ ActiveAdmin.register JapaneseMember do
       li link_to "All Kyouju-sha", members_path(format: "xls", shikaku: "kyouju")
       li link_to "All Koushi ", members_path(format: "xls", shikaku: "koushi")
       li link_to "All Ippan Members", members_path(format: "xls", shikaku: "ippan")
-
+      li link_to "All Kojin", members_path(format: "xls", shikaku: "kojin")
 
     end
 

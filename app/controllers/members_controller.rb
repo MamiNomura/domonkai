@@ -10,6 +10,8 @@ class MembersController < ApplicationController
         @members = Member.where( shikaku_kubun_id: 3).order(:domonkai_id)
       when "ippan"
         @members = Member.where( shikaku_kubun_id: 4).order(:domonkai_id)
+      when "kojin"
+        @members = Member.where(sensei_member_id: nil).order(:domonkai_id)
       else
         @members = Member.order(:domonkai_id)
     end
