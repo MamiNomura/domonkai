@@ -112,7 +112,12 @@ class BookPdf < Prawn::Document
     j = 0
     @members.each do |member|
 
-      member_one = '(' + member.language.to_s + ') '+ member.last_name.to_s + ', ' + member.first_name.to_s
+      if language.nil?
+        member_one = member.last_name.to_s + ', ' + member.first_name.to_s
+      else
+        member_one = '(' + member.language.to_s + ') '+ member.last_name.to_s + ', ' + member.first_name.to_s
+      end
+
       member_two = member.japanese_last_name.to_s + ' ' + member.japanese_first_name.to_s
 
       member_list = []
