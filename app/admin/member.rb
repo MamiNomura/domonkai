@@ -4,7 +4,7 @@ ActiveAdmin.register Member do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id
+                :shikaku_kubun_id, :record_updated
 
   menu priority: 4
 

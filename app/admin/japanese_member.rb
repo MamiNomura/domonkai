@@ -3,7 +3,7 @@ ActiveAdmin.register JapaneseMember do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id
+                :shikaku_kubun_id, :record_updated
 
   title =  "会員名簿"
   menu priority: 5, label: title
@@ -151,7 +151,7 @@ ActiveAdmin.register JapaneseMember do
                              RECORD_UPDATED: %w[true false]
                          } do |selection, inputs|
 
-    puts inputs[:record_updated]
+
     Member.where(:id => selection).update_all(record_updated: inputs[:RECORD_UPDATED]) # ':id => selection' same as 'id in (selection)'
     redirect_to collection_path, notice: "States of selected members have been successfully modified!"
 
