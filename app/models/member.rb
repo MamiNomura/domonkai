@@ -4,7 +4,7 @@ class Member < ActiveRecord::Base
   belongs_to :shikaku_kubun
 
 
-  
+
 
   validates :domonkai_id,  presence: true, uniqueness: true
   validates :first_name,  presence: true
@@ -51,7 +51,7 @@ class Member < ActiveRecord::Base
   def self.allowed_attributes
     [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
       'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id',
-      'address', 'city', 'zip', 'state', 'country', 'sex'
+      'address', 'city', 'zip', 'state', 'country', 'sex', 'record_updated'
     ]
   end
 

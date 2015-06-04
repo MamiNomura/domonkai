@@ -50,6 +50,7 @@ ActiveAdmin.register Member do
   filter :first_name
   filter :last_name
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
+  filter :record_updated
 
   controller do
     def scoped_collection
@@ -111,7 +112,7 @@ ActiveAdmin.register Member do
       f.input :fax
       f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
-
+      f.input :record_updated
     end
     f.actions
   end
@@ -148,6 +149,7 @@ ActiveAdmin.register Member do
         member.shikaku_kubun.name
       end
 
+      row :record_updated
     end
 
     active_admin_comments
@@ -169,6 +171,16 @@ ActiveAdmin.register Member do
     link_to "Import Members", new_member_imports_path
   end
 
+  batch_action :edit_members, form: {
+                                RECORD_UPDATED: %w[true false]
+                            } do |selection, inputs|
+
+    puts inputs[:record_updated]
+    Member.where(:id => selection).update_all(record_updated: inputs[:RECORD_UPDATED]) # ':id => selection' same as 'id in (selection)'
+    redirect_to collection_path, notice: "States of selected members have been successfully modified!"
+
+
+  end
 
 
 end

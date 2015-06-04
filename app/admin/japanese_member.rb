@@ -34,6 +34,7 @@ ActiveAdmin.register JapaneseMember do
   filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
   filter :japanese_last_name, :label => Constants::JAPANESE_LASTNAME_LABEL
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
+  filter :record_updated
 
   index do
     selectable_column
@@ -83,7 +84,7 @@ ActiveAdmin.register JapaneseMember do
       f.input :fax
       f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Constants::JAPANESE_SHIKAKU_LABEL
-
+      f.input :record_updated
     end
     f.actions
   end
@@ -129,6 +130,7 @@ ActiveAdmin.register JapaneseMember do
       row Constants::JAPANESE_SHIKAKU_LABEL do |member|
         member.shikaku_kubun_japanese_name
       end
+      row :record_updated
     end
 
   end
@@ -144,6 +146,18 @@ ActiveAdmin.register JapaneseMember do
   end
 
   batch_action :destroy, false
+
+  batch_action :edit_members, form: {
+                             RECORD_UPDATED: %w[true false]
+                         } do |selection, inputs|
+
+    puts inputs[:record_updated]
+    Member.where(:id => selection).update_all(record_updated: inputs[:RECORD_UPDATED]) # ':id => selection' same as 'id in (selection)'
+    redirect_to collection_path, notice: "States of selected members have been successfully modified!"
+
+
+  end
+
 
   action_item only: :index do
     link_to "Import Members", new_member_imports_path
