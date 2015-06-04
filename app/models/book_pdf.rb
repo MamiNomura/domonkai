@@ -177,15 +177,15 @@ class BookPdf < Prawn::Document
           move_down 2
           text member_address , :size => 10
           move_down 5
-          unless member.phone.nil?
+          unless member.phone.nil? or member.phone.empty?
             text "Phone: #{ActionController::Base.helpers.number_to_phone(member.phone, area_code: true).to_s}" , :size => 9
             move_down 2
           end
-          unless member.fax.nil?
+          unless member.fax.nil? or member.fax.empty?
             text "Fax: #{ActionController::Base.helpers.number_to_phone(member.fax, area_code: true).to_s}" , :size => 9
             move_down 2
           end
-          unless member.email.nil?
+          unless member.email.nil? or member.email.empty?
             text "Email: #{member.email}" , :size => 10
             move_down 2
           end

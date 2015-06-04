@@ -32,7 +32,7 @@ class Member < ActiveRecord::Base
 
   def shachu_book_name
     unless self.shachu.nil?
-      self.shachu.last_name + ' ' + self.shachu.first_name 
+      self.shachu.last_name + ' ' + self.shachu.first_name
     end
   end
 
