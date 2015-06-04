@@ -30,6 +30,12 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def shachu_book_name
+    unless self.shachu.nil?
+      self.shachu.last_name + ' ' + self.shachu.first_name 
+    end
+  end
+
   def japanese_shachu_name
     unless self.shachu.nil?
       self.shachu.japanese_last_name

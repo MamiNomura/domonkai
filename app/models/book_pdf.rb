@@ -122,10 +122,15 @@ class BookPdf < Prawn::Document
 
       member_list = []
 
-      if member.shikaku_kubun_id.eql? 4
-        two = '#05-' + member.domonkai_id.to_s
+      if member.domonkai_id > 0
+        domonkaiID = '#05-' + member.domonkai_id.to_s
       else
-        two = '#05-' + member.domonkai_id.to_s + ' ' + member.shikaku_kubun.japanese_name.to_s
+        domonkaiID = ''
+      end
+      if member.shikaku_kubun_id.eql? 4
+        two = domonkaiID
+      else
+        two = domonkaiID + ' ' + member.shikaku_kubun.japanese_name.to_s
       end
       member_list << two
 
@@ -137,7 +142,7 @@ class BookPdf < Prawn::Document
         end
 
         unless member.shachu.nil?
-          member_list <<   member.shachu_name.to_s + ' 社中' + tea_names
+          member_list <<   member.shachu_book_name.to_s + ' 社中' + tea_names
         else
           member_list << '個人'+ tea_names
         end
