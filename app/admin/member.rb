@@ -46,7 +46,7 @@ ActiveAdmin.register Member do
 
   # displays the site_id but uses site_info_id for the query
   filter :shikaku_kubun_id, :as => :select, :collection => ShikakuKubun.all.collect {|s| [s.name, s.id]}, :label => Constants::SHIKAKU_LABEL
-  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+  filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.last_name+ ' ' +m.first_name, m.id]} , :label => Constants::SHACHU_LABEL
   filter :first_name
   filter :last_name
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
@@ -66,7 +66,7 @@ ActiveAdmin.register Member do
     end
     column Constants::SHACHU_LABEL, sortable: 'sensei_member_id'  do |member|
       unless member.shachu.nil?
-        member.shachu.last_name
+        member.shachu.last_name + ' '+  member.shachu.first_name
 
       else
         member.shachu
@@ -110,7 +110,7 @@ ActiveAdmin.register Member do
       f.input :country , :as => :string
       f.input :phone
       f.input :fax
-      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
+      f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.last_name + ' '+  m.first_name, m.id]} , :label => Constants::SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
       f.input :language
       f.input :record_updated
@@ -140,7 +140,7 @@ ActiveAdmin.register Member do
       row :fax
       row Constants::SHACHU_LABEL do
         unless member.shachu.nil?
-          member.shachu.last_name
+          member.shachu.last_name + ' ' + member.shachu.first_name
         else
           member.shachu
         end
