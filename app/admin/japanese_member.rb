@@ -3,7 +3,7 @@ ActiveAdmin.register JapaneseMember do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id, :record_updated
+                :shikaku_kubun_id, :record_updated, :language
 
   title =  "会員名簿"
   menu priority: 5, label: title
@@ -84,7 +84,9 @@ ActiveAdmin.register JapaneseMember do
       f.input :fax
       f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.japanese_last_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Constants::JAPANESE_SHIKAKU_LABEL
+      f.input :language
       f.input :record_updated
+
     end
     f.actions
   end
@@ -130,6 +132,7 @@ ActiveAdmin.register JapaneseMember do
       row Constants::JAPANESE_SHIKAKU_LABEL do |member|
         member.shikaku_kubun_japanese_name
       end
+      row :language
       row :record_updated
     end
 

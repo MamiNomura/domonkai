@@ -4,7 +4,7 @@ ActiveAdmin.register Member do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id, :record_updated
+                :shikaku_kubun_id, :record_updated, :language
 
   menu priority: 4
 
@@ -112,6 +112,7 @@ ActiveAdmin.register Member do
       f.input :fax
       f.input :sensei_member_id, :include_blank => true, :as => :select, :collection => Member.where(shikaku_kubun_id: [1,2]).order(:last_name).collect {|m| [m.last_name, m.id]} , :label => Constants::SHACHU_LABEL
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
+      f.input :language
       f.input :record_updated
     end
     f.actions
@@ -148,7 +149,7 @@ ActiveAdmin.register Member do
       row Constants::SHIKAKU_LABEL do
         member.shikaku_kubun.name
       end
-
+      row :language
       row :record_updated
     end
 
