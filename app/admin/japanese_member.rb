@@ -6,7 +6,7 @@ ActiveAdmin.register JapaneseMember do
                 :shikaku_kubun_id, :record_updated, :language
 
   title =  "会員名簿"
-  menu priority: 5, label: title
+  menu priority: 5, label: title, :parent => "Membership"
   #active_admin_import
 
 

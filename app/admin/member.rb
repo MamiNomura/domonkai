@@ -6,7 +6,8 @@ ActiveAdmin.register Member do
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
                 :shikaku_kubun_id, :record_updated, :language
 
-  menu priority: 4
+
+  menu priority: 4, :parent => "Membership"
 
   config.per_page = 30
   #index :download_links => [:csv, :xlsx]
