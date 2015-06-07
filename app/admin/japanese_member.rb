@@ -135,6 +135,7 @@ ActiveAdmin.register JapaneseMember do
       row :language
       row :record_updated
     end
+    active_admin_comments
 
   end
 
