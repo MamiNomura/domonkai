@@ -4,7 +4,7 @@ ActiveAdmin.register Member do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id, :record_updated, :language
+                :shikaku_kubun_id, :record_updated, :language, :yakuin
 
 
   menu priority: 4, :parent => "Membership"
@@ -52,6 +52,7 @@ ActiveAdmin.register Member do
   filter :last_name
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
   filter :record_updated
+  filter :yakuin
 
   controller do
     def scoped_collection
@@ -115,6 +116,7 @@ ActiveAdmin.register Member do
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.name, m.id]} , :label => Constants::SHIKAKU_LABEL
       f.input :language
       f.input :record_updated
+      f.input :yakuin
     end
     f.actions
   end
@@ -152,6 +154,7 @@ ActiveAdmin.register Member do
       end
       row :language
       row :record_updated
+      row :yakuin
     end
 
     active_admin_comments

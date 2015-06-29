@@ -15,4 +15,5 @@ module Constants
   JAPANESE_NAME_LABEL = '名前'
   INFO_LABEL = 'Info'
   JAPANESE_INFO_LABEL = '情報'
+  JAPANESE_YAKUIN_LABEL = '役員'
 end

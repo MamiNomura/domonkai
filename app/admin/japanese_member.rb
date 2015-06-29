@@ -3,7 +3,7 @@ ActiveAdmin.register JapaneseMember do
   permit_params :domonkai_id, :first_name, :last_name,
                 :japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
                 :email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
-                :shikaku_kubun_id, :record_updated, :language
+                :shikaku_kubun_id, :record_updated, :language, :yakuin
 
   title =  "会員名簿"
   menu priority: 5, label: title, :parent => "Membership"
@@ -35,6 +35,7 @@ ActiveAdmin.register JapaneseMember do
   filter :japanese_last_name, :label => Constants::JAPANESE_LASTNAME_LABEL
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
   filter :record_updated
+  filter :yakuin, :label => Constants::JAPANESE_YAKUIN_LABEL
 
   index do
     selectable_column
@@ -86,7 +87,7 @@ ActiveAdmin.register JapaneseMember do
       f.input :shikaku_kubun_id, :include_blank => false, :as => :select, :collection => ShikakuKubun.all.collect {|m| [m.japanese_name, m.id]} , :label => Constants::JAPANESE_SHIKAKU_LABEL
       f.input :language
       f.input :record_updated
-
+      f.input :yakuin , :label => Constants::JAPANESE_YAKUIN_LABEL
     end
     f.actions
   end
@@ -134,6 +135,9 @@ ActiveAdmin.register JapaneseMember do
       end
       row :language
       row :record_updated
+      row Constants::JAPANESE_YAKUIN_LABEL do |member|
+        member.yakuin
+      end
     end
     active_admin_comments
 
