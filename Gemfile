@@ -59,3 +59,7 @@ gem 'pawn', '~> 0.0.0'
 gem "prawn-labels"
 
 #gem 'prawnto', '~> 0.1.1'
+
+
+# image processor
+gem "paperclip", "~> 4.2"
