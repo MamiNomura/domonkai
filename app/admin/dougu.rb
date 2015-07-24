@@ -4,7 +4,8 @@ ActiveAdmin.register Dougu do
   # allow these params to be updated
   permit_params :dougu_category_id, :dougu_type_id, :dougu_sub_type_id,
                 :name, :japanese_name, :description,
-                :location, :last_checked, :image_one, :image_two, :image_three
+                :location, :last_checked, :image_one, :image_two, :image_three,
+                :image_link_one, :image_link_two, :image_link_three
 
   title =  "Dougu (道具)"
 
@@ -41,6 +42,10 @@ ActiveAdmin.register Dougu do
       link_to(image_tag(dougu.image_one.url(:thumb), :height => '100'), admin_dougu_path(dougu))
     end
 
+    column "Image Link" do |dougu|
+      link_to(image_tag(dougu.image_link_one, :height => '100'), admin_dougu_path(dougu))
+    end
+
     column 'Type', sortable: 'dougu_types.name' do |dougu|
       dougu.dougu_type.pretty_name
     end
@@ -69,7 +74,9 @@ ActiveAdmin.register Dougu do
       f.input :image_one, :required => false, :as => :file, :hint => image_tag(f.object.image_one.url(:thumb))
       f.input :image_two, :required => false, :as => :file, :hint => image_tag(f.object.image_two.url(:thumb))
       f.input :image_three, :required => false, :as => :file, :hint => image_tag(f.object.image_three.url(:thumb))
-
+      f.input :image_link_one, :required => false, :hint => image_tag(f.object.image_link_one)
+      f.input :image_link_two, :required => false, :hint => image_tag(f.object.image_link_two)
+      f.input :image_link_three, :required => false, :hint => image_tag(f.object.image_link_three)
     end
     f.actions
   end
@@ -117,6 +124,15 @@ ActiveAdmin.register Dougu do
         image_tag(dougu.image_three.url(:medium))
       end
 
+      row "Image Link 1" do
+        image_tag(dougu.image_link_one)
+      end
+      row "Image Link 2" do
+        image_tag(dougu.image_link_two)
+      end
+      row "Image Link 3" do
+        image_tag(dougu.image_link_three)
+      end
 
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720180600) do
+ActiveRecord::Schema.define(version: 20150724105700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,9 @@ ActiveRecord::Schema.define(version: 20150720180600) do
     t.string   "image_three_content_type"
     t.integer  "image_three_file_size"
     t.datetime "image_three_updated_at"
+    t.string   "image_link_one",           limit: 1000
+    t.string   "image_link_two",           limit: 1000
+    t.string   "image_link_three",         limit: 1000
   end
 
   add_index "dougus", ["dougu_category_id"], name: "index_dougus_on_dougu_category_id", using: :btree
