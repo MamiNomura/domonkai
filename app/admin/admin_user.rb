@@ -3,8 +3,8 @@
 #end
 
 ActiveAdmin.register AdminUser do
-  menu priority: 2
 
+  menu priority: 2, label: "Admin Members", :parent => "Admin"
   permit_params :email, :password, :password_confirmation
 
   index do
@@ -14,6 +14,7 @@ ActiveAdmin.register AdminUser do
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
+    column :role
     actions
   end
 

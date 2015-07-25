@@ -64,6 +64,10 @@ ActiveAdmin.setup do |config|
   # CanCanAdapter or make your own. Please refer to documentation.
   # config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
+  # Adding custom authorization
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/13-authorization-adapter.md
+  config.authorization_adapter = "DomonAdminAuthorization"
+
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
@@ -246,4 +250,5 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+
 end

@@ -63,3 +63,7 @@ gem "prawn-labels"
 
 # image processor
 gem "paperclip", "~> 4.2"
+gem 'cancan'
+
+gem 'draper'
+gem 'pundit'
