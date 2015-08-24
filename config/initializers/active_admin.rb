@@ -116,7 +116,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  config.root_to = 'japanese_members#index'
+  config.root_to = 'dougus#index'
 
   # == Admin Comments
   #

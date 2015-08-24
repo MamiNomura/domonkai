@@ -4,7 +4,7 @@ ActiveAdmin.register Dougu do
   # allow these params to be updated
   permit_params :dougu_category_id, :dougu_type_id, :dougu_sub_type_id,
                 :name, :japanese_name, :description,
-                :location, :last_checked, :image_one, :image_two, :image_three,
+                :location, :last_checked,
                 :image_link_one, :image_link_two, :image_link_three
 
   title =  "Dougu (道具)"
@@ -38,11 +38,8 @@ ActiveAdmin.register Dougu do
 
   index do
     selectable_column
-    column "Image" do |dougu|
-      link_to(image_tag(dougu.image_one.url(:thumb), :height => '100'), admin_dougu_path(dougu))
-    end
 
-    column "Image Link" do |dougu|
+    column "Image" do |dougu|
       link_to(image_tag(dougu.image_link_one, :height => '100'), admin_dougu_path(dougu))
     end
 
@@ -71,9 +68,6 @@ ActiveAdmin.register Dougu do
       f.input :description
       f.input :location
       f.input :last_checked, :as => :datepicker
-      f.input :image_one, :required => false, :as => :file, :hint => image_tag(f.object.image_one.url(:thumb))
-      f.input :image_two, :required => false, :as => :file, :hint => image_tag(f.object.image_two.url(:thumb))
-      f.input :image_three, :required => false, :as => :file, :hint => image_tag(f.object.image_three.url(:thumb))
       f.input :image_link_one, :required => false, :hint => image_tag(f.object.image_link_one)
       f.input :image_link_two, :required => false, :hint => image_tag(f.object.image_link_two)
       f.input :image_link_three, :required => false, :hint => image_tag(f.object.image_link_three)
@@ -112,18 +106,6 @@ ActiveAdmin.register Dougu do
       row :description
       row :location
       row :last_checked
-      row "Image" do
-        image_tag(dougu.image_one.url(:medium))
-      end
-
-      row "Image 2" do
-        image_tag(dougu.image_two.url(:medium))
-      end
-
-      row "Image 3" do
-        image_tag(dougu.image_three.url(:medium))
-      end
-
       row "Image Link 1" do
         image_tag(dougu.image_link_one)
       end

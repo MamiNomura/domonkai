@@ -6,22 +6,9 @@ class Dougu < ActiveRecord::Base
   validates :name,  presence: true
   validates :japanese_name,  presence: true
 
-  # This method associates the attribute ":image_one" with a file attachment
-  has_attached_file :image_one, styles: {
-                                  thumb: '100x100>',
-                                  medium: '200x200>'
-                              }
-  has_attached_file :image_two, styles: {
-                                  thumb: '100x100>',
-                                  medium: '200x200>'
-                              }
-  has_attached_file :image_three, styles: {
-                                  thumb: '100x100>',
-                                  medium: '200x200>'
-                              }
 
   # Validate the attached image is image/jpg, image/png, etc
-  validates_attachment_content_type :image_one, :content_type => /\Aimage\/.*\Z/
+
 
   def category_name
     unless self.dougu_type.nil?

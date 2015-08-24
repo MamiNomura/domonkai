@@ -5,31 +5,38 @@ class DomonAdminAuthorization < ActiveAdmin::AuthorizationAdapter
     # Super user can do anything
     if user.role == "super"
       true
-    else
+    elsif user.role == "" || user.role.nil?
       if action == :read
-        # Give all access to read
-        true
-      else
         case subject
-          when  normalized(AdminRole)
-            true
-          when normalized(Dougu)
-            user.role == "dougu"
-          when  normalized(DouguCategory)
-            user.role == "dougu"
-          when  normalized(DouguType)
-            user.role == "dougu"
-          when  normalized(DouguSubType)
-            user.role == "dougu"
-          when  normalized(Member)
-            user.role == "membership"
-          when  normalized(JapaneseMember)
-            user.role == "membership"
-          when  normalized(ShikakuKubun)
-            user.role == "membership"
-          else
-            false
+        when normalized(Dougu)
+          # ippan can only read dougu, nothing more
+          true
+        else
+          false
         end
+
+      else
+        false
+      end
+    else
+      # some sort of roles
+      case subject
+        when normalized(Dougu)
+          user.role == "dougu"
+        when  normalized(DouguCategory)
+          user.role == "dougu"
+        when  normalized(DouguType)
+          user.role == "dougu"
+        when  normalized(DouguSubType)
+          user.role == "dougu"
+        when  normalized(Member)
+          user.role == "membership"
+        when  normalized(JapaneseMember)
+          user.role == "membership"
+        when  normalized(ShikakuKubun)
+          user.role == "membership"
+        else
+          false
       end
     end
   end

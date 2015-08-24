@@ -32,19 +32,19 @@ ActiveRecord::Schema.define(version: 20150724193500) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: true do |t|
-    t.string   "email",                             default: "", null: false
-    t.string   "encrypted_password",                default: "", null: false
+    t.string   "email",                             default: "",      null: false
+    t.string   "encrypted_password",                default: "",      null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                     default: 0,  null: false
+    t.integer  "sign_in_count",                     default: 0,       null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role",                   limit: 30
+    t.string   "role",                   limit: 30, default: "super"
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
@@ -79,31 +79,19 @@ ActiveRecord::Schema.define(version: 20150724193500) do
   add_index "dougu_types", ["dougu_category_id"], name: "index_dougu_types_on_dougu_category_id", using: :btree
 
   create_table "dougus", force: true do |t|
-    t.integer  "dougu_category_id",                     null: false
-    t.integer  "dougu_type_id",                         null: false
+    t.integer  "dougu_category_id",              null: false
+    t.integer  "dougu_type_id",                  null: false
     t.integer  "dougu_sub_type_id"
-    t.string   "name",                     limit: 100,  null: false
-    t.string   "japanese_name",            limit: 100,  null: false
-    t.string   "description",              limit: 2000
-    t.string   "location",                 limit: 100
+    t.string   "name",              limit: 100,  null: false
+    t.string   "japanese_name",     limit: 100,  null: false
+    t.string   "description",       limit: 2000
+    t.string   "location",          limit: 100
     t.datetime "last_checked"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_one_file_name"
-    t.string   "image_one_content_type"
-    t.integer  "image_one_file_size"
-    t.datetime "image_one_updated_at"
-    t.string   "image_two_file_name"
-    t.string   "image_two_content_type"
-    t.integer  "image_two_file_size"
-    t.datetime "image_two_updated_at"
-    t.string   "image_three_file_name"
-    t.string   "image_three_content_type"
-    t.integer  "image_three_file_size"
-    t.datetime "image_three_updated_at"
-    t.string   "image_link_one",           limit: 1000
-    t.string   "image_link_two",           limit: 1000
-    t.string   "image_link_three",         limit: 1000
+    t.string   "image_link_one",    limit: 1000
+    t.string   "image_link_two",    limit: 1000
+    t.string   "image_link_three",  limit: 1000
   end
 
   add_index "dougus", ["dougu_category_id"], name: "index_dougus_on_dougu_category_id", using: :btree
@@ -111,7 +99,7 @@ ActiveRecord::Schema.define(version: 20150724193500) do
   add_index "dougus", ["dougu_type_id"], name: "index_dougus_on_dougu_type_id", using: :btree
 
   create_table "members", force: true do |t|
-    t.string   "domonkai_id",         limit: 20,                     null: false
+    t.integer  "domonkai_id",                                        null: false
     t.string   "first_name",          limit: 50,                     null: false
     t.string   "last_name",           limit: 50,                     null: false
     t.string   "japanese_first_name", limit: 50
@@ -120,15 +108,14 @@ ActiveRecord::Schema.define(version: 20150724193500) do
     t.string   "japanese_tea_name"
     t.string   "email"
     t.string   "sex",                 limit: 10,  default: "Female"
-    t.string   "address",             limit: 100
-    t.string   "city",                limit: 50
-    t.string   "state",               limit: 2
+    t.string   "address"
+    t.string   "city",                limit: 100
+    t.string   "state",               limit: 20
     t.string   "zip",                 limit: 15
     t.string   "country",             limit: 20
     t.string   "phone",               limit: 15
     t.string   "fax",                 limit: 15
     t.integer  "sensei_member_id"
-    t.datetime "join_date",                                          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shikaku_kubun_id"
@@ -137,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150724193500) do
     t.boolean  "yakuin",                          default: false
   end
 
+  add_index "members", ["domonkai_id"], name: "index_members_on_domonkai_id", using: :btree
   add_index "members", ["japanese_last_name", "japanese_first_name"], name: "index_members_on_japanese_last_name_and_japanese_first_name", using: :btree
   add_index "members", ["last_name", "first_name"], name: "index_members_on_last_name_and_first_name", using: :btree
   add_index "members", ["sensei_member_id"], name: "index_members_on_sensei_member_id", using: :btree
