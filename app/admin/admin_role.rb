@@ -18,7 +18,7 @@ ActiveAdmin.register AdminRole do
   form do |f|
     f.inputs "Admin Details" do
       f.input :email,  :input_html => {:disabled => true}
-      f.input :role,  :as => :select, :collection => ['membership','dougu','super'] ,:include_blank => true
+      f.input :role,  :as => :select, :collection => ['membership','dougu','view', 'super'] ,:include_blank => true
     end
     f.actions
   end
