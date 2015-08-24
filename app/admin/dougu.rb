@@ -19,9 +19,9 @@ ActiveAdmin.register Dougu do
 
   # displays the site_id but uses site_info_id for the query
   # todo: comment out here before db migration
-  filter :dougu_category_id, :as => :select, :collection => DouguCategory.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Category'
-  filter :dougu_type_id, :as => :select, :collection => DouguType.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Type'
-  filter :dougu_sub_type_id, :as => :select, :collection => DouguSubType.all.collect {|s| [s.pretty_name, s.id]} , :label => 'Sub Type'
+  #filter :dougu_category_id, :as => :select, :collection => DouguCategory.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Category'
+  #filter :dougu_type_id, :as => :select, :collection => DouguType.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Type'
+  #filter :dougu_sub_type_id, :as => :select, :collection => DouguSubType.all.collect {|s| [s.pretty_name, s.id]} , :label => 'Sub Type'
 
   filter :name
   filter :japanese_name, :label => '日本語名'
