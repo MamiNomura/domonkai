@@ -15,6 +15,18 @@ Things you may want to cover:
 
 * Database creation
 
+### Reset db
+
+```
+heroku pg:reset DATABASE
+```
+_local reset_
+
+```
+dropdb 'database name'
+createdb 'db name'
+```
+
 * Database initialization
 
 * How to run the test suite
@@ -23,8 +35,17 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+exec rake assets:precompile
+
+-- push to heroku
+git push heroku master
+
+-- migration
+heroku run rake db:migrate
+
+
+export LC_CTYPE=C
+tr '\r' '\n' < target-file | grep search-string
+
