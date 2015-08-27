@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724193500) do
+ActiveRecord::Schema.define(version: 21050826212600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,13 +50,6 @@ ActiveRecord::Schema.define(version: 20150724193500) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "dougu_categories", force: true do |t|
-    t.string   "name",          limit: 50, null: false
-    t.string   "japanese_name", limit: 50, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "dougu_sub_types", force: true do |t|
     t.integer  "dougu_type_id",            null: false
     t.string   "name",          limit: 50, null: false
@@ -68,33 +61,28 @@ ActiveRecord::Schema.define(version: 20150724193500) do
   add_index "dougu_sub_types", ["dougu_type_id"], name: "index_dougu_sub_types_on_dougu_type_id", using: :btree
 
   create_table "dougu_types", force: true do |t|
-    t.integer  "dougu_category_id",              null: false
-    t.string   "name",              limit: 50,   null: false
-    t.string   "japanese_name",     limit: 50,   null: false
-    t.string   "description",       limit: 1000
+    t.string   "name",          limit: 50,   null: false
+    t.string   "japanese_name", limit: 50,   null: false
+    t.string   "description",   limit: 1000
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "dougu_types", ["dougu_category_id"], name: "index_dougu_types_on_dougu_category_id", using: :btree
-
   create_table "dougus", force: true do |t|
-    t.integer  "dougu_category_id",              null: false
     t.integer  "dougu_type_id",                  null: false
     t.integer  "dougu_sub_type_id"
     t.string   "name",              limit: 100,  null: false
     t.string   "japanese_name",     limit: 100,  null: false
     t.string   "description",       limit: 2000
     t.string   "location",          limit: 100
-    t.datetime "last_checked"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "image_link_one",    limit: 1000
     t.string   "image_link_two",    limit: 1000
     t.string   "image_link_three",  limit: 1000
+    t.datetime "last_checked"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "dougus", ["dougu_category_id"], name: "index_dougus_on_dougu_category_id", using: :btree
   add_index "dougus", ["dougu_sub_type_id"], name: "index_dougus_on_dougu_sub_type_id", using: :btree
   add_index "dougus", ["dougu_type_id"], name: "index_dougus_on_dougu_type_id", using: :btree
 

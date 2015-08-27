@@ -2,7 +2,7 @@
 ActiveAdmin.register Dougu do
 
   # allow these params to be updated
-  permit_params :dougu_category_id, :dougu_type_id, :dougu_sub_type_id,
+  permit_params :dougu_type_id, :dougu_sub_type_id,
                 :name, :japanese_name, :description,
                 :location, :last_checked,
                 :image_link_one, :image_link_two, :image_link_three
@@ -15,13 +15,12 @@ ActiveAdmin.register Dougu do
   #index :download_links => [:csv, :xlsx]
 
   # default sort column
-  config.sort_order = :dougu_category_id, :dougu_type_id, :dougu_sub_type_id
+  config.sort_order = :dougu_type_id, :dougu_sub_type_id
 
   # displays the site_id but uses site_info_id for the query
   # todo: comment out here before db migration
-  filter :dougu_category_id, :as => :select, :collection => DouguCategory.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Category'
-  filter :dougu_type_id, :as => :select, :collection => DouguType.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Type'
-  filter :dougu_sub_type_id, :as => :select, :collection => DouguSubType.all.collect {|s| [s.pretty_name, s.id]} , :label => 'Sub Type'
+  #filter :dougu_type_id, :as => :select, :collection => DouguType.all.collect {|s| [s.pretty_name, s.id]}, :label => 'Type'
+  #filter :dougu_sub_type_id, :as => :select, :collection => DouguSubType.all.collect {|s| [s.pretty_name, s.id]} , :label => 'Sub Type'
 
   filter :name
   filter :japanese_name, :label => '日本語名'
@@ -31,7 +30,7 @@ ActiveAdmin.register Dougu do
   controller do
     before_filter { @page_title = title }
     def scoped_collection
-      super.includes :dougu_type, :dougu_category, :dougu_sub_type # prevents N+1 queries to your database
+      super.includes :dougu_type, :dougu_sub_type # prevents N+1 queries to your database
     end
   end
 
@@ -44,7 +43,12 @@ ActiveAdmin.register Dougu do
     end
 
     column 'Type', sortable: 'dougu_types.name' do |dougu|
-      dougu.dougu_type.pretty_name
+      result = dougu.dougu_type.pretty_name
+      unless dougu.dougu_sub_type_id.nil?
+        result += '<br/>' + dougu.dougu_sub_type.pretty_name
+      end
+      raw(result)
+
     end
 
 
@@ -60,7 +64,6 @@ ActiveAdmin.register Dougu do
 
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs do
-      f.input :dougu_category_id, :include_blank => false, :as => :select, :collection => DouguCategory.all.collect {|m| [m.pretty_name, m.id]} , :label => 'Category'
       f.input :dougu_type_id, :include_blank => false, :as => :select, :collection => DouguType.all.collect {|m| [m.pretty_name, m.id]} , :label => 'Type'
       f.input :dougu_sub_type_id, :include_blank => true, :as => :select, :collection => DouguSubType.all.collect {|m| [m.pretty_name, m.id]} , :label => 'SubType'
       f.input :name, :as => :string, :include_blank => false
@@ -78,14 +81,6 @@ ActiveAdmin.register Dougu do
 
   show do |dougu|
     attributes_table do
-      row "Category"  do
-        if dougu.dougu_category.nil?
-          dougu.dougu_category
-        else
-          dougu.dougu_category.pretty_name
-        end
-
-      end
       row "Type" do
         if dougu.dougu_type.nil?
           dougu.dougu_type
