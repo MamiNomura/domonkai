@@ -71,7 +71,7 @@ ActiveAdmin.register Dougu do
       f.input :description
       f.input :location
       f.input :last_checked, :as => :datepicker
-      f.input :image_link_one, :required => false, :hint => image_tag(f.object.image_link_one)
+      f.input :image_link_one, :required => false, :hint => image_tag(f.object.image_link_one), :label => raw("Main Image <br/> (upload the image somewhere and right click the image and select 'Copy Image URL' to get the URL of the image)")
       f.input :image_link_two, :required => false, :hint => image_tag(f.object.image_link_two)
       f.input :image_link_three, :required => false, :hint => image_tag(f.object.image_link_three)
     end
