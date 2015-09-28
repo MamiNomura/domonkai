@@ -9,7 +9,8 @@ ActiveAdmin.register Member do
 
   menu priority: 4, :parent => "Membership"
 
-  config.per_page = 30
+  #config.per_page = 30
+  config.paginate = false
   #index :download_links => [:csv, :xlsx]
 
   sidebar :Download do
