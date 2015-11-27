@@ -31,8 +31,6 @@ class DomonAdminAuthorization < ActiveAdmin::AuthorizationAdapter
             else
               user.role == "dougu"
             end
-          when  normalized(DouguCategory)
-            user.role == "dougu"
           when  normalized(DouguType)
             user.role == "dougu"
           when  normalized(DouguSubType)

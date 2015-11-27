@@ -7,10 +7,14 @@ class LabelsController < ApplicationController
     case params[:shikaku]
       when "kyouju"
         members = Member.where( shikaku_kubun_id: [1,2]).order(:last_name)
-      when "koushi"
+      when "shikaku"
         members = Member.where( shikaku_kubun_id: 3).order(:last_name)
       when "ippan"
         members = Member.where( shikaku_kubun_id: 4).order(:last_name)
+      when "no_email"
+        members = Member.where(email: nil).order(:last_name)
+      when "kojin"
+        members = Member.where(sensei_member_id: nil).order(:domonkai_id)
       else
         members = Member.order(:last_name)
     end

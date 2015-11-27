@@ -6,7 +6,7 @@ class MembersController < ApplicationController
     case params[:shikaku]
       when "kyouju"
         @members = Member.where( shikaku_kubun_id: [1,2]).order(:domonkai_id)
-      when "koushi"
+      when "shikaku"
         @members = Member.where( shikaku_kubun_id: 3).order(:domonkai_id)
       when "ippan"
         @members = Member.where( shikaku_kubun_id: 4).order(:domonkai_id)

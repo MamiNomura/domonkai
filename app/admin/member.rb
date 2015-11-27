@@ -17,7 +17,7 @@ ActiveAdmin.register Member do
     ul do
       li link_to "All Members", members_path(format: "xls", shikaku: "all")
       li link_to "All Kyouju-sha", members_path(format: "xls", shikaku: "kyouju")
-      li link_to "All Koushi ", members_path(format: "xls", shikaku: "koushi")
+      li link_to "All Shikaku-sha ", members_path(format: "xls", shikaku: "shikaku")
       li link_to "All Ippan Members", members_path(format: "xls", shikaku: "ippan")
       li link_to "All Kojin", members_path(format: "xls", shikaku: "kojin")
     end
@@ -26,8 +26,10 @@ ActiveAdmin.register Member do
     ul do
       li link_to "All Members Lables", labels_path(shikaku: "all")
       li link_to "All Kyouju-sha Lables", labels_path(shikaku: "kyouju")
-      li link_to "All Koushi Lables", labels_path(shikaku: "koushi")
+      li link_to "All Shikaku-sha Lables", labels_path(shikaku: "shikaku")
       li link_to "All Ippan Lables", labels_path(shikaku: "ippan")
+      li link_to "All Kojin Lables", labels_path(shikaku: "kojin")
+      li link_to "Members with no emails", labels_path(shikaku: "no_email")
     end
   end
 
