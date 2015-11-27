@@ -52,8 +52,9 @@ ActiveAdmin.register Dougu do
     end
 
 
-    column 'Name', sortable: 'name' do |d|
-      d.pretty_name.to_s
+    column 'Name', sortable: 'name' do |dougu|
+      field = dougu.pretty_name.to_s + '<br/>'+ dougu.description
+      raw(field)
     end
 
     actions
@@ -68,7 +69,7 @@ ActiveAdmin.register Dougu do
       f.input :dougu_sub_type_id, :include_blank => true, :as => :select, :collection => DouguSubType.all.collect {|m| [m.pretty_name, m.id]} , :label => 'SubType'
       f.input :name, :as => :string, :include_blank => false
       f.input :japanese_name, :as => :string, :include_blank => false
-      f.input :description
+      f.input :description, :as => :html_editor
       f.input :location
       f.input :last_checked, :as => :datepicker
       f.input :image_link_one, :required => false, :hint => image_tag(f.object.image_link_one), :label => raw("Main Image <br/> (upload the image somewhere and right click the image and select 'Copy Image URL' to get the URL of the image)")
@@ -98,7 +99,9 @@ ActiveAdmin.register Dougu do
       end
       row :name
       row :japanese_name
-      row :description
+      row "Description" do
+        raw(dougu.description)
+      end
       row :location
       row :last_checked
       row "Image Link 1" do

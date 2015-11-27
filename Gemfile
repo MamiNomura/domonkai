@@ -68,3 +68,4 @@ gem 'cancan'
 
 gem 'draper'
 gem 'pundit'
+gem 'active_admin_editor'
