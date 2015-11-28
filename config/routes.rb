@@ -20,6 +20,25 @@ Rails.application.routes.draw do
   end
 
   resource :member_imports
+  resources :dougu_type do
+    collection { post :import }
+  end
+
+  resource :dougu_type_imports
+  resources :dougu_sub_type do
+    collection { post :import }
+  end
+
+  resource :dougu_sub_type_imports
+
+  resource :dougu_imports
+  resources :dougu do
+    collection { post :import }
+  end
+
+  resource :dougu_imports
+
+
   resource :labels
   resource :books
   # Example resource route with options:

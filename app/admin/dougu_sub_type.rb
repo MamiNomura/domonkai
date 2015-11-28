@@ -6,8 +6,11 @@ ActiveAdmin.register DouguSubType do
 
   index do
     selectable_column
-    column "Type", sortable: 'dougu_types.name' do |st|
-      st.dougu_type.name + ' (' + st.dougu_type.japanese_name + ')'
+    column "Type", sortable: 'dougu_type.name' do |st|
+      unless st.dougu_type.nil?
+        st.dougu_type.name + ' (' + st.dougu_type.japanese_name + ')'
+      end
+
     end
 
     column :name
@@ -22,6 +25,10 @@ ActiveAdmin.register DouguSubType do
       f.input :japanese_name
     end
     f.actions
+  end
+
+  action_item only: :index do
+    link_to "Import Sub Types", new_dougu_sub_type_imports_path
   end
 
 end

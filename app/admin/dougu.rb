@@ -43,10 +43,13 @@ ActiveAdmin.register Dougu do
     end
 
     column 'Type', sortable: 'dougu_types.name' do |dougu|
-      result = dougu.dougu_type.pretty_name
-      unless dougu.dougu_sub_type_id.nil?
-        result += '<br/>' + dougu.dougu_sub_type.pretty_name
+      unless dougu.dougu_type.nil?
+        result = dougu.dougu_type.pretty_name
+        unless dougu.dougu_sub_type_id.nil?
+          result += '<br/>' + dougu.dougu_sub_type.pretty_name
+        end
       end
+
       raw(result)
 
     end
@@ -120,5 +123,8 @@ ActiveAdmin.register Dougu do
   end
 
 
+  action_item only: :index do
+    link_to "Import  Dougu", new_dougu_imports_path
+  end
 
 end
