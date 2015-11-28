@@ -1,0 +1,49 @@
+<div id="main_content_wrapper" class="active_admin_content table_tools" style="padding: 30px;">
+  <div id="main_content">
+<h2>Import Dougu</h2>
+
+<p>A CSV or Excel file can be used to import members. The first row should be the column name. The following columns are allowed.</p>
+
+<!--
+permit_params :domonkai_id, :join_date, :first_name, :last_name,
+:japanese_first_name, :japanese_last_name, :tea_name, :japanese_tea_name,
+:email, :sex, :address, :city, :state, :zip, :country, :phone, :fax , :sensei_member_id,
+:shikaku_kubun_id
+-->
+
+<ul>
+  <% Dougu.columns.each do |column| %>
+      <% if column.name.in? Dougu.allowed_attributes %>
+          <li>
+            <strong><%= column.name %></strong> -
+            <%= column.type.to_s.titleize %> type
+          </li>
+      <% end %>
+  <% end %>
+
+</ul>
+<strong>Note:</strong>
+
+
+
+
+<%= form_for @dougu_import do |f| %>
+    <% if @dougu_import.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@dougu_import.errors.count, "error") %> prohibited this import from completing:</h2>
+          <ul>
+            <% @dougu_import.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.file_field :file %>
+    </div>
+    <div class="buttons"><%= f.submit "Import" %></div>
+<% end %>
+</div>
+</div>
+
