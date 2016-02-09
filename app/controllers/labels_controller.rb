@@ -15,6 +15,14 @@ class LabelsController < ApplicationController
         members = Member.where(email: nil).order(:last_name)
       when "kojin"
         members = Member.where(sensei_member_id: nil).order(:domonkai_id)
+      when "kyouju_no_email"
+        members = Member.where( shikaku_kubun_id: [1,2], email: nil).order(:last_name)
+      when "shikaku_no_email"
+        members = Member.where( shikaku_kubun_id: 3, email: nil).order(:last_name)
+      when "ippan_no_email"
+        members = Member.where( shikaku_kubun_id: 4, email: nil).order(:last_name)
+      when "kojin_email"
+        members = Member.where(sensei_member_id: nil, email: nil).order(:domonkai_id)
       else
         members = Member.order(:last_name)
     end

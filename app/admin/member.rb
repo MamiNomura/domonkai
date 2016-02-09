@@ -29,7 +29,12 @@ ActiveAdmin.register Member do
       li link_to "All Shikaku-sha Lables", labels_path(shikaku: "shikaku")
       li link_to "All Ippan Lables", labels_path(shikaku: "ippan")
       li link_to "All Kojin Lables", labels_path(shikaku: "kojin")
-      li link_to "Members with no emails", labels_path(shikaku: "no_email")
+      li link_to "All Members with no emails", labels_path(shikaku: "no_email")
+      li link_to "All Kyouju-sha with no emails", labels_path(shikaku: "kyouju_no_email")
+      li link_to "All Shikaku-sha with no emails", labels_path(shikaku: "shikaku_no_email")
+      li link_to "All Ippan with no emails", labels_path(shikaku: "ippan_no_email")
+      li link_to "All Kojin with no emails", labels_path(shikaku: "kojin_no_email")
+
     end
   end
 
