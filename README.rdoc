@@ -6,6 +6,7 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+2.2.4
 
 * System dependencies
 
@@ -35,8 +36,6 @@ createdb 'db name'
 
 * Deployment instructions
 
-
-
 exec rake assets:precompile
 
 -- push to heroku
@@ -49,3 +48,10 @@ heroku run rake db:migrate
 export LC_CTYPE=C
 tr '\r' '\n' < target-file | grep search-string
 
+### Export DB
+To save backup, from your app directory, type:
+
+```
+heroku pg:backups capture
+
+```
