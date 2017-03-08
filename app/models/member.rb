@@ -61,4 +61,11 @@ class Member < ActiveRecord::Base
     ]
   end
 
+  scope :kojin, -> { where "sensei_member_id is null" }
+  scope :kyoju, -> { where "shikaku_kubun_id in (1,2)" }
+  scope :shikaku, -> { where "shikaku_kubun_id = 3" }
+  scope :ippan, -> { where "shikaku_kubun_id = 4" }
+
+
+
 end

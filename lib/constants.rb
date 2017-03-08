@@ -4,6 +4,10 @@ module Constants
   SHIKAKU_LABEL = 'Shikaku'
   SHACHU_LABEL = 'Shachu'
   ADDRESS_LABEL = 'Address'
+  KOJIN = 'Kojin'
+  KYOJU = "Kyoju"
+  SHIKAKUSHA = "Shikakusha"
+  IPPAN = "Ippan"
   JAPANESE_ADDRESS_LABEL = "住所"
   JAPANESE_LASTNAME_LABEL = "苗字 （Last Name)"
   JAPANESE_FIRSTNAME_LABEL = "名前 (First Name)"
@@ -16,4 +20,8 @@ module Constants
   INFO_LABEL = 'Info'
   JAPANESE_INFO_LABEL = '情報'
   JAPANESE_YAKUIN_LABEL = '役員'
+  JAPANESE_KOJIN = '個人'
+  JAPANESE_KYOJU = '教授'
+  JAPANESE_SHIKAKUSHA = '資格者'
+  JAPANESE_IPPAN = '一般'
 end

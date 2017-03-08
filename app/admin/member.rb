@@ -13,6 +13,15 @@ ActiveAdmin.register Member do
   config.paginate = false
   #index :download_links => [:csv, :xlsx]
 
+  scope :all, default: true
+  scope Constants::KOJIN, :kojin
+  scope Constants::KYOJU, :kyoju
+  scope Constants::SHIKAKUSHA, :shikaku
+  scope Constants::IPPAN, :ippan
+
+
+
+
   sidebar :Download do
     ul do
       li link_to "All Members", members_path(format: "xls", shikaku: "all")
@@ -58,9 +67,13 @@ ActiveAdmin.register Member do
   filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.last_name+ ' ' +m.first_name, m.id]} , :label => Constants::SHACHU_LABEL
   filter :first_name
   filter :last_name
+  filter :email
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
   filter :record_updated
   filter :yakuin
+  filter :sensei_member_id, :as => :boolean
+
+
 
   controller do
     def scoped_collection

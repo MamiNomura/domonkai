@@ -9,6 +9,11 @@ ActiveAdmin.register JapaneseMember do
   menu priority: 5, label: title, :parent => "Membership"
   #active_admin_import
 
+  scope :all, default: true
+  scope Constants::KOJIN, :kojin
+  scope Constants::KYOJU, :kyoju
+  scope Constants::SHIKAKUSHA, :shikaku
+  scope Constants::IPPAN, :ippan
 
   config.per_page = 30
   controller do
@@ -31,6 +36,7 @@ ActiveAdmin.register JapaneseMember do
   filter :sensei_member_id, :as => :select, :collection => Member.where(shikaku_kubun_id:  [1,2]).order(:last_name).collect {|m| [m.japanese_last_name + ' ' + m.japanese_first_name, m.id]} , :label => Constants::JAPANESE_SHACHU_LABEL
   filter :first_name
   filter :last_name
+  filter :email
   filter :japanese_first_name, :label => Constants::JAPANESE_FIRSTNAME_LABEL
   filter :japanese_last_name, :label => Constants::JAPANESE_LASTNAME_LABEL
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
