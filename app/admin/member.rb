@@ -71,7 +71,7 @@ ActiveAdmin.register Member do
   filter :domonkai_id, :label => Constants::DOMONKAI_ID_LABEL
   filter :record_updated
   filter :yakuin
-  filter :sensei_member_id, :as => :boolean
+
 
 
 
