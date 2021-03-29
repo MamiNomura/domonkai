@@ -1,20 +1,22 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## How to set up development environment
 
-Things you may want to cover:
+### Prereq
+ 
+  * Docker
+  * docker-compose (https://docs.docker.com/compose/install/)
+  * git
 
-* Ruby version
-2.2.4
+### Start development environment
 
-* System dependencies
-
-  Need ImageMagick
-
-* Configuration
-
-* Database creation
+```
+docker-compose run --no-deps web rails new . --force --database=postgresql
+sudo chown -R $USER:$USER . 
+docker-compose build
+docker-compose run web rake db:create
+docker-compose up
+```
 
 ### Reset db
 
