@@ -17,7 +17,7 @@ ActiveAdmin.register JapaneseMember do
 
   config.per_page = 30
   controller do
-    before_filter { @page_title = title }
+    before_action { @page_title = title }
     def scoped_collection
       super.includes :shikaku_kubun  # prevents N+1 queries to your database
     end

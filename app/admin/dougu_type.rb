@@ -1,6 +1,6 @@
 ActiveAdmin.register DouguType do
   permit_params :name, :japanese_name, :description
-  before_filter :skip_sidebar!, :only => :index
+  before_action :skip_sidebar!, :only => :index
   menu priority: 9 , :parent => "Dougu"
 
 

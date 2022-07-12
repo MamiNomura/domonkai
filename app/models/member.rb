@@ -1,6 +1,6 @@
 class Member < ActiveRecord::Base
-  belongs_to :shachu, :class_name => "Member", :foreign_key => "sensei_member_id"
-  has_many :students, :class_name => "Member", :foreign_key => "sensei_member_id"
+  belongs_to :shachu, optional: true, :class_name => "Member", :foreign_key => "sensei_member_id"
+  # has_many :students, :class_name => "Member", :foreign_key => "sensei_member_id", :optional => true
   belongs_to :shikaku_kubun
 
 
@@ -57,7 +57,8 @@ class Member < ActiveRecord::Base
   def self.allowed_attributes
     [ 'domonkai_id', 'first_name', 'last_name', 'japanese_last_name', 'japanese_first_name',
       'fax', 'email', 'phone', 'tea_name', 'japanese_tea_name', 'language', 'shikaku_kubun_id',
-      'address', 'city', 'zip', 'state', 'country', 'sex', 'record_updated'
+      'address', 'city', 'zip', 'state', 'country', 'sex', 'record_updated', 'sensei_member_id',
+      'yakuin', 'record_updated'
     ]
   end
 

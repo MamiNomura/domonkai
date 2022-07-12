@@ -15,7 +15,7 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
-@import "responsive_active_admin";
+// @import "responsive_active_admin";
 
 
 //Add the Website's logo. This is displayed on the top-left corner of the page.
@@ -32,7 +32,7 @@ $skinHeaderBck: #684908;
 $panelHeaderBck: #684908;
 $skinTextTable: #000000;
 
-@import "active_skin";
+// @import "active_skin";
 
 body.active_admin {
   font-size: 14px ;

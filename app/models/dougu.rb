@@ -1,6 +1,5 @@
 class Dougu < ActiveRecord::Base
   belongs_to :dougu_type, :class_name => "DouguType", :foreign_key => "dougu_type_id"
-  belongs_to :dougu_sub_type, :class_name => "DouguSubType", :foreign_key => "dougu_sub_type_id"
 
   validates :name,  presence: true
   validates :japanese_name,  presence: true
@@ -14,7 +13,7 @@ class Dougu < ActiveRecord::Base
   end
 
   def self.allowed_attributes
-    [ 'dougu_type_id', 'dougu_sub_type_id', 'name', 'japanese_name', 'description',
+    [ 'dougu_type_id', 'name', 'japanese_name', 'description',
       'location', 'last_checked'
     ]
   end

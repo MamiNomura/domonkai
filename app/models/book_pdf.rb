@@ -151,9 +151,9 @@ class BookPdf < Prawn::Document
 
 
       if member.country.eql? "USA"
-        member_address = member.city.to_s + ', ' + member.state.to_s + ' ' + member.zip
+        member_address = member&.city&.to_s + ', ' + member&.state&.to_s + ' ' + member&.zip
       else
-        member_address = member.city.to_s + ', ' + member.state.to_s + ' ' + member.zip + ' ' + member.country.to_s
+        member_address = "" + member.city.to_s + ", " + member.state.to_s + " " + member.zip.to_s + " " + member.country.to_s
       end
 
       grid([i,j],[i,j]).bounding_box do
@@ -234,8 +234,8 @@ class BookPdf < Prawn::Document
 
 
       kyouju.each do |member|
-        member_info = member.domonkai_id.to_s + ' ' + member.last_name + ', ' +
-            member.first_name.to_s + ' '+ member.japanese_tea_name + ' '+ member.tea_name
+        member_info = '' + member.domonkai_id.to_s + ' ' + member.last_name.to_s + ', ' +
+          member.first_name.to_s + ' '+ member.japanese_tea_name.to_s + ' '+ member.tea_name.to_s
 
         font "fonts/aozoramincho-readme-ttf/AozoraMinchoRegular.ttf" do
           text "#{member_info}", size: 10
