@@ -64,14 +64,15 @@ ActiveAdmin.setup do |config|
   # CanCanAdapter or make your own. Please refer to documentation.
   # config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
-  # Adding custom authorization
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/13-authorization-adapter.md
-  config.authorization_adapter = "DomonAdminAuthorization"
-
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
   # config.pundit_default_policy = "MyDefaultPunditPolicy"
+
+  # If you wish to maintain a separate set of Pundit policies for admin
+  # resources, you may set a namespace here that Pundit will search
+  # within when looking for a resource's policy.
+  # config.pundit_policy_namespace = :admin
 
   # You can customize your CanCan Ability class name here.
   # config.cancan_ability_class = "Ability"
@@ -125,11 +126,18 @@ ActiveAdmin.setup do |config|
   # You can completely disable comments:
   # config.comments = false
   #
-  # You can disable the menu item for the comments index page:
-  config.show_comments_in_menu = false
-  #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
+  #
+  # You can change the order for the comments and you can change the column
+  # to be used for ordering:
+  # config.comments_order = 'created_at ASC'
+  #
+  # You can disable the menu item for the comments index page:
+  config.comments_menu = false
+  #
+  # You can customize the comment menu:
+  # config.comments_menu = { parent: 'Admin', priority: 1 }
 
   # == Batch Actions
   #
@@ -142,7 +150,25 @@ ActiveAdmin.setup do |config|
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
   #
-  # config.before_filter :do_something_awesome
+  # config.before_action :do_something_awesome
+
+  # == Attribute Filters
+  #
+  # You can exclude possibly sensitive model attributes from being displayed,
+  # added to forms, or exported by default by ActiveAdmin
+  #
+  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+
+  # == Localize Date/Time Format
+  #
+  # Set the localize format to display dates and times.
+  # To understand how to localize your app with I18n, read more at
+  # https://guides.rubyonrails.org/i18n.html
+  #
+  # You can run `bin/rails runner 'puts I18n.t("date.formats")'` to see the
+  # available formats in your application.
+  #
+  config.localize_format = :long
 
   # == Setting a Favicon
   #
@@ -167,6 +193,13 @@ ActiveAdmin.setup do |config|
   # resources or you can disable them globally from here.
   #
   # config.breadcrumb = false
+
+  # == Create Another Checkbox
+  #
+  # Create another checkbox is disabled by default. You can customize it for individual
+  # resources or you can enable them globally from here.
+  #
+  # config.create_another = true
 
   # == Register Stylesheets & Javascripts
   #
@@ -232,9 +265,6 @@ ActiveAdmin.setup do |config|
   #     admin.download_links = proc { can?(:view_download_links) }
   #
   #   end
-  # config.namespace :admin do |admin|
-  #   admin.download_links = [:csv, :xlsx]
-  # end
 
   # == Pagination
   #
@@ -242,6 +272,10 @@ ActiveAdmin.setup do |config|
   # You can control the default per page count for all resources here.
   #
   # config.default_per_page = 30
+  #
+  # You can control the max per page count too.
+  #
+  # config.max_per_page = 10_000
 
   # == Filters
   #
@@ -250,5 +284,52 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+  #
+  # By default the filters include associations in a select, which means
+  # that every record will be loaded for each association (up
+  # to the value of config.maximum_association_filter_arity).
+  # You can enabled or disable the inclusion
+  # of those filters by default here.
+  #
+  # config.include_default_association_filters = true
 
+  # config.maximum_association_filter_arity = 256 # default value of :unlimited will change to 256 in a future version
+  # config.filter_columns_for_large_association = [
+  #    :display_name,
+  #    :full_name,
+  #    :name,
+  #    :username,
+  #    :login,
+  #    :title,
+  #    :email,
+  #  ]
+  # config.filter_method_for_large_association = '_starts_with'
+
+  # == Head
+  #
+  # You can add your own content to the site head like analytics. Make sure
+  # you only pass content you trust.
+  #
+  # config.head = ''.html_safe
+
+  # == Footer
+  #
+  # By default, the footer shows the current Active Admin version. You can
+  # override the content of the footer here.
+  #
+  # config.footer = 'my custom footer text'
+
+  # == Sorting
+  #
+  # By default ActiveAdmin::OrderClause is used for sorting logic
+  # You can inherit it with own class and inject it for all resources
+  #
+  # config.order_clause = MyOrderClause
+
+  # == Webpacker
+  #
+  # By default, Active Admin uses Sprocket's asset pipeline.
+  # You can switch to using Webpacker here.
+  #
+  # config.use_webpacker = true
 end

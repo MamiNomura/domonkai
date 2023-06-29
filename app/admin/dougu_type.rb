@@ -2,6 +2,7 @@ ActiveAdmin.register DouguType do
   permit_params :name, :japanese_name, :description
   before_action :skip_sidebar!, :only => :index
   menu priority: 9 , :parent => "Dougu"
+  config.comments = false
 
 
   index do
@@ -16,7 +17,8 @@ ActiveAdmin.register DouguType do
     f.inputs "Dougu Type" do
       f.input :name
       f.input :japanese_name
-      f.input :description , :as => :html_editor
+      f.input :description , :as => :quill_editor
+      
     end
     f.actions
   end

@@ -16,6 +16,7 @@ ActiveAdmin.register Dougu do
 
   # default sort column
   config.sort_order = 'dougu_types.name_asc'
+  config.comments = false
 
   # displays the site_id but uses site_info_id for the query
   # todo: comment out here before db migration
@@ -67,7 +68,7 @@ ActiveAdmin.register Dougu do
       f.input :dougu_type_id, :include_blank => false, :as => :select, :collection => DouguType.all.order(:name).collect {|m| [m.pretty_name, m.id]} , :label => 'Type'
       f.input :name, :as => :string, :include_blank => false
       f.input :japanese_name, :as => :string, :include_blank => false
-      f.input :description, :as => :html_editor
+      f.input :description, :as => :quill_editor
       f.input :location
       f.input :last_checked, :as => :datepicker
       f.input :image_link_one, :required => false
